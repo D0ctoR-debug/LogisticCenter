@@ -1,6 +1,4 @@
-package com.finaproject.logistic.controller.annotation;
-
-
+package com.finaproject.logistic.entity.annotations;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

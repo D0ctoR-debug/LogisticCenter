@@ -1,33 +1,49 @@
 package com.finaproject.logistic.entity;
+
+import org.springframework.context.annotation.Scope;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "basket")
+@Scope("singleton")
 public class Basket {
-
-    public Basket() {
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "id")
+    private int id;
 
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column
-    private double totalPrice;
+    @OneToMany(mappedBy = "basket")
+    private List<BasketItem> basketItems;
 
-    @ManyToMany(mappedBy = "baskets", cascade = CascadeType.ALL)
-    private List<Service> services;
+    public Basket() {
+    }
+
+    public Basket(int id, User user, List<BasketItem> basketItems) {
+        this.id = id;
+        this.user = user;
+        this.basketItems = basketItems;
+    }
+
+    public Basket(User user) {
+        this.user=user;
+    }
+
+    public boolean isEmpty() {
+        return basketItems.isEmpty();
+    }
 
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -39,19 +55,11 @@ public class Basket {
         this.user = user;
     }
 
-    public double getTotalPrice() {
-        return totalPrice;
+    public List<BasketItem> getBasketItems() {
+        return basketItems;
     }
 
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public List<Service> getServices() {
-        return services;
-    }
-
-    public void setServices(List<Service> services) {
-        this.services = services;
+    public void setBasketItems(List<BasketItem> basketItems) {
+        this.basketItems = basketItems;
     }
 }

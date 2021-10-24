@@ -1,6 +1,8 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -86,12 +88,15 @@
     </style>
 </head>
 <body>
-<form class="form-signin" method="post" action="/login">
+<c:url value="/login" var="login"/>
+<form:form cssClass="form-signin" method="post" action="${login}">
+<%--<form class="form-signin" method="post" action="/login">--%>
     <div class="text-center mb-4">
         <img src="https://www.transinfo.by/files/transinfo/reg_images/logis_logo.jpeg" class="rounded float-start" alt="logo" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal"><spring:message code="login.login"/></h1>
     </div>
 
+    <div align="center" style="color: #850000;">${msg}</div>
     <div class="form-label-group">
         <input type="text" name="username" id="username" class="form-control" placeholder="Username" required="">
         <label for="username"><spring:message code="username.login"/></label>
@@ -109,6 +114,7 @@
 <%--    </div>--%>
     <button class="btn btn-lg btn-primary btn-block" type="submit"><spring:message code="enter.login"/></button>
     <p class="mt-5 mb-3 text-muted text-center">Все права защищены</p>
-</form>
+    </form:form>
+<%--</form>--%>
 </body>
 </html>

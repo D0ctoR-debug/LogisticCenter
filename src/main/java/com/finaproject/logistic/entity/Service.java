@@ -1,7 +1,6 @@
 package com.finaproject.logistic.entity;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 
@@ -20,48 +19,59 @@ public class Service {
 
     @Column
     private String imageUrl;
+    @Column
+    private double cost;
+    @Column
+    private double price;
 
-
-
-//    @Column
-//    private String result;
-
-//    @Column
-//    private double pricePerTon;
-//
-//    @Column
-//    private double pricePerKm;
-//
-//    @Column
-//    private double pricePerName;
-
-//    @Column
-//    private java.sql.Timestamp serviceTime;
+    private int quantity;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "basket_item",
-            joinColumns = {@JoinColumn(name = "service_id")},
-            inverseJoinColumns = {@JoinColumn(name = "basket_id")})
-    private List<Basket> baskets;
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "basket_item",
+//            joinColumns = {@JoinColumn(name = "service_id")},
+//            inverseJoinColumns = {@JoinColumn(name = "basket_id")})
+//    private List<Basket> baskets;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "order_item",
             joinColumns = {@JoinColumn(name = "service_id")},
             inverseJoinColumns = {@JoinColumn(name = "order_id")})
-    private List<Orders> orders;
+    private List<Order> orders;
 
     @ManyToMany
     @JoinColumn(name = "characteristics_id")
     private Set<ProductsCharacteristics> characteristics;
 
+//    @ManyToMany
+//    @JoinTable(name = "basket_item_service",
+//            joinColumns = @JoinColumn(name = "service_id"),
+//            inverseJoinColumns = @JoinColumn(name = "basket_item_id"))
+//    private List<BasketItem> basketItems;
+
 
     public Service() {
     }
 
+    public Service(String name, String description, String imageUrl, double cost, double price, int quantity) {
+        this.name = name;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.cost = cost;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    public Service(String name, String description, String imageUrl, double cost, double price) {
+        this.name = name;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.cost = cost;
+        this.price = price;
+    }
 
     public long getId() {
         return id;
@@ -103,15 +113,15 @@ public class Service {
         this.category = category;
     }
 
-    public List<Basket> getBaskets() {
-        return baskets;
-    }
+//    public List<Basket> getBaskets() {
+//        return baskets;
+//    }
+//
+//    public void setBaskets(List<Basket> baskets) {
+//        this.baskets = baskets;
+//    }
 
-    public void setBaskets(List<Basket> baskets) {
-        this.baskets = baskets;
-    }
-
-    public List<Orders> getOrders() {
+    public List<Order> getOrders() {
         return orders;
     }
 
@@ -123,7 +133,39 @@ public class Service {
         this.characteristics = characteristics;
     }
 
-    public void setOrders(List<Orders> orders) {
+    public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+//    public List<BasketItem> getBasketItems() {
+//        return basketItems;
+//    }
+//
+//    public void setBasketItems(List<BasketItem> basketItems) {
+//        this.basketItems = basketItems;
+//    }
+
+    public double getCost() {
+        return cost;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

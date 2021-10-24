@@ -2,14 +2,15 @@ package com.finaproject.logistic.service;
 
 import com.finaproject.logistic.entity.Service;
 import com.finaproject.logistic.repository.DaoService;
-import com.finaproject.logistic.repository.ServiceDAO;
-import com.finaproject.logistic.service.interfaces.ServiceRepository;
+import com.finaproject.logistic.service.interfaces.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@org.springframework.stereotype.Service
-public class ServiceService implements ServiceRepository {
+import javax.transaction.Transactional;
+import java.util.List;
 
-    private ServiceDAO serviceDAO;
+@org.springframework.stereotype.Service
+public class ServiceServiceImpl implements ServiceService {
+
     private DaoService daoService;
 
     @Autowired
@@ -17,19 +18,28 @@ public class ServiceService implements ServiceRepository {
         this.daoService = daoService;
     }
 
-    @Autowired
-    public void setServiceDAO(ServiceDAO serviceDAO) {
-        this.serviceDAO = serviceDAO;
-    }
-
     @Override
     public double calculatePriceOfWarehouse(double tons, double hours) {
         return (tons * hours);
     }
 
-//    @Override
+    @Override
+    @Transactional
+    public Service returnServiceById(long id) {
+        return daoService.getById(id);
+    }
+
+    @Override
+    public List<Service> returnAllServices() {
+        return daoService.findAll();
+    }
+    //    @Override
 //    public Service returnServiceById(long id) {
 //        return daoService.getOne(id);
+//    }
+
+//    public boolean saveTransportToBasket(Service service){
+//
 //    }
 
 }

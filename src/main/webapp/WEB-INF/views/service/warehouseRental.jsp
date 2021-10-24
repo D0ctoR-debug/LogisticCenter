@@ -40,70 +40,41 @@
     <section>
         <div class="container-xxl">
             <div class="col-12 text-center">
-                <h3>Закупки – важная часть деятельности любого производства или торговой сети. Для осуществления своей деятельности компаниям важно своевременное приобретение качественного сырья, товаров, оснащения и других элементов формирующих материально-техническую базу. Закупочная логистика призвана упорядочить процесс закупки, учета, хранения, а также выдачи сырья на производственные линии для оптимизации деятельности предприятия и повышения уровня прибыли.
-                </h3>
-                <h3>Закупочная логистика – представляет собой деятельность по управлению товарной или сырьевой массой направленную на максимально быстрое обеспечение предприятия всем необходимым с долей экономической выгоды.
-                </h3>
+                <h3><spring:message code="description.transport"/></h3>
             </div>
         </div>
     </section>
     <section>
         <div class="container-xxl">
-            <h2 id="Services">Checkout</h2>
+            <h2 id="Services"><spring:message code="order.transport"/></h2>
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-                            aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                            aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                            aria-label="Slide 3"></button>
-                </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <div class="row justify-content-between">
-                            <div class="col">
-                                <div class="card w-100">
-                                    <img src="https://storage.myseldon.com/news_pict_B8/B81B81D2EA2CA2525846327C624E1643"
-                                         class="card-img-top" width="250" height="250" alt="Транспортная логистика">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Доставка/перевозка грузов наземным транспортом</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up
-                                            the bulk of the card's content.</p>
-                                        <a role="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#order" href="#order">Заказать</a>
+                            <c:forEach var="el" items="${rental}">
+                                <div class="col">
+                                    <div class="card w-100">
+                                        <img src="${el.imageUrl}"
+                                             class="card-img-top" width="250" height="250" alt="Транспортная логистика">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                    ${el.name}
+                                            </h5>
+                                            <p class="card-text">
+                                                    ${el.description}
+                                            </p>
+                                            <a title="add to basket" href="/addToBasket?idService=${el.id}">Dpbavit'</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col">
-                                <div class="card w-100">
-                                    <img src="https://im0-tub-by.yandex.net/i?id=a6cd78f8221393e119edc4a9859e4892&n=13"
-                                         class="card-img-top" width="250" height="250" alt="Складская логистика">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Доставка/перевозка грузов воздушным транспортом</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up
-                                            the bulk of the card's content.</p>
-                                        <a role="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#order" href="#order">Заказать</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="card w-100">
-                                    <img src="https://avatars.mds.yandex.net/get-zen_doc/2404796/pub_60019eb90cf4a170b932fc60_6001b26efd62ee068979de07/scale_1200"
-                                         class="card-img-top" width="250" height="250" alt="Перегон транспорта">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Доставка/перевозка грузов по железнодорожным путям</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up
-                                            the bulk of the card's content.</p>
-                                        <a role="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#order" href="#order">Заказать</a>
-                                    </div>
-                                </div>
-                            </div>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+</div>
 </div>
 <!-- Modal -->
 <section class="modal fade" id="order" tabindex="-1" aria-labelledby="orderJelLabel" aria-hidden="true">

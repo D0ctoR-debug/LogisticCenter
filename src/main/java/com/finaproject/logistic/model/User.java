@@ -10,6 +10,7 @@ public class User {
     private long id;
     private String name;
     private String username;
+    private double discount;
     private String password;
     private String passwordConfirm;
     private String phoneNumber;
@@ -21,25 +22,35 @@ public class User {
     public User() {
     }
 
+    public User(UserForm userForm) {
+        this.name = userForm.getName();
+        this.username = userForm.getUsername();
+        this.password = userForm.getPassword();
+        this.passwordConfirm = userForm.getPasswordConfirm();
+        this.phoneNumber = userForm.getPhoneNumber();
+        this.email = userForm.getEmail();
+        this.valid = userForm.isValid();
+    }
 
-    public User(String name, String username, String password,String passwordConfirm, String phoneNumber, String email, Set<Role> roles) {
+
+    public User(String name, String username, String password, String passwordConfirm, String phoneNumber, String email, Set<Role> roles) {
         this.name = name;
         this.username = username;
         this.password = password;
-        this.passwordConfirm=passwordConfirm;
+        this.passwordConfirm = passwordConfirm;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.roles = roles;
     }
 
-    public User(UserForm userForm) {
+    public User(com.finaproject.logistic.entity.User userForm) {
         this.name = userForm.getName();
         this.username = userForm.getUsername();
         this.password = userForm.getPassword();
-        this.passwordConfirm= userForm.getPasswordConfirm();
+        this.passwordConfirm = userForm.getPasswordConfirm();
         this.phoneNumber = userForm.getPhoneNumber();
         this.email = userForm.getEmail();
-        this.valid = userForm.isValid();
+
     }
 
     public long getId() {

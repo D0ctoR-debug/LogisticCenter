@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <html>
 <head>
@@ -99,7 +100,6 @@
     <%@include file="/WEB-INF/views/navbar/navbarMain.jsp" %>
 </head>
 <body>
-<a href="/admin">Admin</a>
 <div data-bs-spy="scroll" data-bs-target="#navbarUser" data-bs-offset="0" class="scrollspy-example" tabindex="0">
     <section class="sec-1 col-sm-12 col-lg-12">
         <div class="container-xxl">
@@ -119,160 +119,225 @@
         <div class="container-xxl">
             <div class="row align-items-center">
                 <div class="col-7">
-                    <h4><spring:message code="description.main"/></h4>
+                    <h4><spring:message code="description.main"/></h4><br>
+<%--                    <sec:authorize access="hasRole('ADMIN')">--%>
+<%--                        <a href="#" class="btn-btn-primary">Change description</a>--%>
+<%--                    </sec:authorize>--%>
                 </div>
                 <div class="col-5 g-5">
-                    <img class="w-100" src="https://my-tumen.ru/unimages/sklad/3.jpg" alt="Warehouse">
+                    <img class="w-100"
+                         src="https://avatars.mds.yandex.net/i?id=052c53a539c02ebf1711f6979d6c853f-5331782-images-thumbs&n=13"
+                         alt="Warehouse">
                 </div>
             </div>
         </div>
     </section>
     <div class="container-xxl">
-        <h2 id="Services"><spring:message code="service.start"/></h2>
+        <h2 id="Services"><spring:message code="service.start"/> <sec:authorize access="hasRole('ADMIN')"><a
+                class="btn btn-primary" href="/addCategory"><spring:message code="addCategory.main"/></a></sec:authorize></h2>
     </div>
-<%--<c:forEach var="el" items="${categories}">--%>
-    <div class="container-xxl">
-        <div class="col-sm-12 col-lg-12">
-            <div class="row justify-content-start">
-                <div class="services">
-                    <div class="col-sm-12 col-lg-6">
-                        <img alt="transportLogistic" class="img_logistics"
-                             src="https://storage.myseldon.com/news_pict_B8/B81B81D2EA2CA2525846327C624E1643">
-                        <br>
-                    </div>
-                    <div class="col-sm-12 col-lg-6 text_logistics">
-                        <h3 id="TransportLog">
-<%--                            <c:out value="${el.name}"/>--%>
-                            <spring:message code="dropdownTransport.start"/>
-                        </h3>
-                        <p class="services_p">
-<%--                            <c:out value="${el.description}"/>--%>
-                            <spring:message code="descriptionForTransportLogistic"/>
-                        </p>
-                        <a href="/transport" class="btn btn-primary"><spring:message code="readMore.main"/></a>
+    <c:forEach var="el" items="${categories}">
+        <c:if test="${el.id%2!=0}">
+            <div class="container-xxl">
+                <div class="col-sm-12 col-lg-12">
+                    <div class="row justify-content-start">
+                        <div class="services">
+                            <div class="col-sm-12 col-lg-6">
+                                <img alt="transportLogistic" class="img_logistics"
+                                     src="${el.image}">
+                                <br>
+                            </div>
+                            <div class="col-sm-12 col-lg-6 text_logistics">
+                                <h3 id="TransportLog">
+                                    <c:out value="${el.name}"/>
+                                        <%--                            <spring:message code="dropdownTransport.start"/>--%>
+                                </h3>
+                                <p class="services_p">
+                                    <c:out value="${el.description}"/>
+                                        <%--                            <spring:message code="descriptionForTransportLogistic"/>--%>
+                                </p>
+                                <a href="/category/<c:out value="${el.id}"/>" class="btn btn-primary"><spring:message
+                                        code="readMore.main"/></a>
+                                <sec:authorize access="hasAnyRole('ADMIN','MANAGER')">
+                                    <a href="/category/${el.id}/edit" class="btn btn-secondary"><spring:message code="editCategory.main"/></a>
+                                </sec:authorize>
+                                <sec:authorize access="hasRole('ADMIN')">
+                                    <form action="/category/${el.id}/delete" method="post">
+                                        <button type="submit" class="btn btn-danger"><spring:message code="deleteCategory.main"/></button>
+                                    </form>
+                                </sec:authorize>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <br><br><br><br><br><br>
-<%--</c:forEach>--%>
-    <div class="container-xxl">
-        <div class="col-sm-12 col-lg-12">
-            <div class="row justify-content-center">
-                <div class="services">
-                    <div class="col-sm-12 col-lg-6 text_logistics">
-                        <h3 id="WarehouseLog">
-                            <spring:message code="dropdownWarehouse.start"/>
-                        </h3>
-                        <p class="services_p">
-                            Транспортно-экспедиционная деятельность является неотъемлемым элементом эффективного
-                            осуществления перевозок грузов
-                            не только для клиента, оптимизируя его финансовые, трудовые и иные затраты, но и для нашего
-                            Предприятия, непосредственно
-                            осуществляющего перевозку груза, что позволяет нам позиционировать себя как надежного
-                            делового партнера и дисциплинированного
-                            игрока на рынке логистических услуг.
-                        </p>
-                        <a href="/warehouse" class="btn btn-primary"><spring:message code="readMore.main"/></a>
-                    </div>
-                    <div class="col-sm-12 col-lg-6">
-                        <img class="img_logistics"
-                             src="https://im0-tub-by.yandex.net/i?id=a6cd78f8221393e119edc4a9859e4892&n=13">
-                        <br>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br><br><br><br><br><br>
-    <div class="container-xxl">
-        <div class="col-sm-12 col-lg-12" data-wow-offset="300">
-            <div class="row justify-content-start">
-                <div class="services">
-                    <div class="col-sm-12 col-lg-7">
-                        <img class="img_logistics"
-                             src="https://avatars.mds.yandex.net/get-zen_doc/2404796/pub_60019eb90cf4a170b932fc60_6001b26efd62ee068979de07/scale_1200">
-                        <br>
-                    </div>
-                    <div class="col-sm-12 col-lg-5 text_logistics">
-                        <h3 id="Transport">
-                            <spring:message code="dropdownHaul.start"/>
-                        </h3>
-                        <p class="services_p">
-                            Транспортно-экспедиционная деятельность является неотъемлемым элементом эффективного
-                            осуществления перевозок грузов
-                            не только для клиента, оптимизируя его финансовые, трудовые и иные затраты, но и для нашего
-                            Предприятия, непосредственно
-                            осуществляющего перевозку груза, что позволяет нам позиционировать себя как надежного
-                            делового партнера и дисциплинированного
-                            игрока на рынке логистических услуг.
-                        </p>
-                        <a href="/transportHaul" class="btn btn-primary"><spring:message code="readMore.main"/></a>
+            <br><br><br><br><br><br>
+        </c:if>
+        <c:if test="${el.id%2==0}">
+            <div class="container-xxl">
+                <div class="col-sm-12 col-lg-12">
+                    <div class="row justify-content-center">
+                        <div class="services">
+                            <div class="col-sm-12 col-lg-6 text_logistics">
+                                <h3 id="WarehouseLog">
+                                    <c:out value="${el.name}"/>
+                                        <%--                                    <spring:message code="dropdownWarehouse.start"/>--%>
+                                </h3>
+                                <p class="services_p">
+                                    <c:out value="${el.description}"/>
+                                        <%--                                    Транспортно-экспедиционная деятельность является неотъемлемым элементом эффективного--%>
+                                        <%--                                    осуществления перевозок грузов--%>
+                                        <%--                                    не только для клиента, оптимизируя его финансовые, трудовые и иные затраты, но и для--%>
+                                        <%--                                    нашего--%>
+                                        <%--                                    Предприятия, непосредственно--%>
+                                        <%--                                    осуществляющего перевозку груза, что позволяет нам позиционировать себя как--%>
+                                        <%--                                    надежного--%>
+                                        <%--                                    делового партнера и дисциплинированного--%>
+                                        <%--                                    игрока на рынке логистических услуг.--%>
+                                </p>
+                                <a href="/category/<c:out value="${el.id}"/>" class="btn btn-primary"><spring:message
+                                        code="readMore.main"/></a>
+                                <sec:authorize access="hasAnyRole('ADMIN','MANAGER')">
+                                    <a href="/category/${el.id}/edit" class="btn btn-secondary"><spring:message code="editCategory.main"/></a>
+                                </sec:authorize>
+                                <sec:authorize access="hasRole('ADMIN')">
+                                    <form action="/category/${el.id}/delete" method="post">
+                                        <button type="submit" class="btn btn-danger"><spring:message code="deleteCategory.main"/></button>
+                                    </form>
+                                </sec:authorize>
+                            </div>
+                            <div class="col-sm-12 col-lg-6">
+                                <img class="img_logistics"
+                                     src="${el.image}">
+                                <br>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <br><br><br><br><br><br>
-    <div class="container-xxl">
-        <div class="col-sm-12 col-lg-12">
-            <div class="row justify-content-center">
-                <div class="services">
-                    <div class="col-sm-12 col-lg-5 text_logistics">
-                        <h3 id="Rental">
-                            <spring:message code="dropdownRental.start"/>
-                        </h3>
-                        <p class="services_p">
-                            Транспортно-экспедиционная деятельность является неотъемлемым элементом эффективного
-                            осуществления перевозок грузов
-                            не только для клиента, оптимизируя его финансовые, трудовые и иные затраты, но и для нашего
-                            Предприятия, непосредственно
-                            осуществляющего перевозку груза, что позволяет нам позиционировать себя как надежного
-                            делового партнера и дисциплинированного
-                            игрока на рынке логистических услуг.
-                        </p>
-                        <a href="/warehouseRental" class="btn btn-primary"><spring:message code="readMore.main"/></a>
-                    </div>
-                    <div class="col-sm-12 col-lg-7">
-                        <img class="img_logistics"
-                             src="https://im0-tub-by.yandex.net/i?id=d13232261a42cc64a48470378944fad2&n=13">
-                        <br>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br><br><br><br><br><br>
-    <div class="container-xxl">
-        <div class="col-sm-12 col-lg-12" data-wow-offset="300">
-            <div class="row justify-content-start">
-                <div class="services">
-                    <div class="col-sm-12 col-lg-7">
-                        <img class="img_logistics"
-                             src="https://img2.freepng.ru/20190302/flh/kisspng-logistics-distribution-supply-chain-management-tra-one-stop-cross-border-fulfillment-solution-for-sou-5c7a0decaef140.7161804315515028287166.jpg">
-                        <br>
-                    </div>
-                    <div class="col-sm-12 col-lg-5 text_logistics">
-                        <h3 id="Purchasing">
-                            <spring:message code="dropdownPurchasing.start"/>
-                        </h3>
-                        <p class="services_p">
-                            Транспортно-экспедиционная деятельность является неотъемлемым элементом эффективного
-                            осуществления перевозок грузов
-                            не только для клиента, оптимизируя его финансовые, трудовые и иные затраты, но и для нашего
-                            Предприятия, непосредственно
-                            осуществляющего перевозку груза, что позволяет нам позиционировать себя как надежного
-                            делового партнера и дисциплинированного
-                            игрока на рынке логистических услуг.
-                        </p>
-                        <a href="/purchasing" class="btn btn-primary"><spring:message code="readMore.main"/></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+            <br><br><br><br><br><br>
+        </c:if>
+    </c:forEach>
+    <%--    <div class="container-xxl">--%>
+    <%--        <div class="col-sm-12 col-lg-12">--%>
+    <%--            <div class="row justify-content-center">--%>
+    <%--                <div class="services">--%>
+    <%--                    <div class="col-sm-12 col-lg-6 text_logistics">--%>
+    <%--                        <h3 id="WarehouseLog">--%>
+    <%--                            <spring:message code="dropdownWarehouse.start"/>--%>
+    <%--                        </h3>--%>
+    <%--                        <p class="services_p">--%>
+    <%--                            Транспортно-экспедиционная деятельность является неотъемлемым элементом эффективного--%>
+    <%--                            осуществления перевозок грузов--%>
+    <%--                            не только для клиента, оптимизируя его финансовые, трудовые и иные затраты, но и для нашего--%>
+    <%--                            Предприятия, непосредственно--%>
+    <%--                            осуществляющего перевозку груза, что позволяет нам позиционировать себя как надежного--%>
+    <%--                            делового партнера и дисциплинированного--%>
+    <%--                            игрока на рынке логистических услуг.--%>
+    <%--                        </p>--%>
+    <%--                        <a href="/warehouse" class="btn btn-primary"><spring:message code="readMore.main"/></a>--%>
+    <%--                    </div>--%>
+    <%--                    <div class="col-sm-12 col-lg-6">--%>
+    <%--                        <img class="img_logistics"--%>
+    <%--                             src="https://im0-tub-by.yandex.net/i?id=a6cd78f8221393e119edc4a9859e4892&n=13">--%>
+    <%--                        <br>--%>
+    <%--                    </div>--%>
+    <%--                </div>--%>
+    <%--            </div>--%>
+    <%--        </div>--%>
+    <%--    </div>--%>
+    <%--    <br><br><br><br><br><br>--%>
+    <%--    <div class="container-xxl">--%>
+    <%--        <div class="col-sm-12 col-lg-12" data-wow-offset="300">--%>
+    <%--            <div class="row justify-content-start">--%>
+    <%--                <div class="services">--%>
+    <%--                    <div class="col-sm-12 col-lg-7">--%>
+    <%--                        <img class="img_logistics"--%>
+    <%--                             src="https://avatars.mds.yandex.net/get-zen_doc/2404796/pub_60019eb90cf4a170b932fc60_6001b26efd62ee068979de07/scale_1200">--%>
+    <%--                        <br>--%>
+    <%--                    </div>--%>
+    <%--                    <div class="col-sm-12 col-lg-5 text_logistics">--%>
+    <%--                        <h3 id="Transport">--%>
+    <%--                            <spring:message code="dropdownHaul.start"/>--%>
+    <%--                        </h3>--%>
+    <%--                        <p class="services_p">--%>
+    <%--                            Транспортно-экспедиционная деятельность является неотъемлемым элементом эффективного--%>
+    <%--                            осуществления перевозок грузов--%>
+    <%--                            не только для клиента, оптимизируя его финансовые, трудовые и иные затраты, но и для нашего--%>
+    <%--                            Предприятия, непосредственно--%>
+    <%--                            осуществляющего перевозку груза, что позволяет нам позиционировать себя как надежного--%>
+    <%--                            делового партнера и дисциплинированного--%>
+    <%--                            игрока на рынке логистических услуг.--%>
+    <%--                        </p>--%>
+    <%--                        <a href="/transportHaul" class="btn btn-primary"><spring:message code="readMore.main"/></a>--%>
+    <%--                        <sec:authorize access="hasRole('ADMIN')">--%>
+    <%--                        <a href="/transportHaul" class="btn btn-primary">Delete</a>--%>
+    <%--                        </sec:authorize>--%>
+    <%--                    </div>--%>
+    <%--                </div>--%>
+    <%--            </div>--%>
+    <%--        </div>--%>
+    <%--    </div>--%>
+    <%--    <br><br><br><br><br><br>--%>
+    <%--    <div class="container-xxl">--%>
+    <%--        <div class="col-sm-12 col-lg-12">--%>
+    <%--            <div class="row justify-content-center">--%>
+    <%--                <div class="services">--%>
+    <%--                    <div class="col-sm-12 col-lg-5 text_logistics">--%>
+    <%--                        <h3 id="Rental">--%>
+    <%--                            <spring:message code="dropdownRental.start"/>--%>
+    <%--                        </h3>--%>
+    <%--                        <p class="services_p">--%>
+    <%--                            Транспортно-экспедиционная деятельность является неотъемлемым элементом эффективного--%>
+    <%--                            осуществления перевозок грузов--%>
+    <%--                            не только для клиента, оптимизируя его финансовые, трудовые и иные затраты, но и для нашего--%>
+    <%--                            Предприятия, непосредственно--%>
+    <%--                            осуществляющего перевозку груза, что позволяет нам позиционировать себя как надежного--%>
+    <%--                            делового партнера и дисциплинированного--%>
+    <%--                            игрока на рынке логистических услуг.--%>
+    <%--                        </p>--%>
+    <%--                        <a href="/warehouseRental" class="btn btn-primary"><spring:message code="readMore.main"/></a>--%>
+    <%--                    </div>--%>
+    <%--                    <div class="col-sm-12 col-lg-7">--%>
+    <%--                        <img class="img_logistics"--%>
+    <%--                             src="https://im0-tub-by.yandex.net/i?id=d13232261a42cc64a48470378944fad2&n=13">--%>
+    <%--                        <br>--%>
+    <%--                    </div>--%>
+    <%--                </div>--%>
+    <%--            </div>--%>
+    <%--        </div>--%>
+    <%--    </div>--%>
+    <%--    <br><br><br><br><br><br>--%>
+    <%--    <div class="container-xxl">--%>
+    <%--        <div class="col-sm-12 col-lg-12" data-wow-offset="300">--%>
+    <%--            <div class="row justify-content-start">--%>
+    <%--                <div class="services">--%>
+    <%--                    <div class="col-sm-12 col-lg-7">--%>
+    <%--                        <img class="img_logistics"--%>
+    <%--                             src="https://img2.freepng.ru/20190302/flh/kisspng-logistics-distribution-supply-chain-management-tra-one-stop-cross-border-fulfillment-solution-for-sou-5c7a0decaef140.7161804315515028287166.jpg">--%>
+    <%--                        <br>--%>
+    <%--                    </div>--%>
+    <%--                    <div class="col-sm-12 col-lg-5 text_logistics">--%>
+    <%--                        <h3 id="Purchasing">--%>
+    <%--                            <spring:message code="dropdownPurchasing.start"/>--%>
+    <%--                        </h3>--%>
+    <%--                        <p class="services_p">--%>
+    <%--                            Транспортно-экспедиционная деятельность является неотъемлемым элементом эффективного--%>
+    <%--                            осуществления перевозок грузов--%>
+    <%--                            не только для клиента, оптимизируя его финансовые, трудовые и иные затраты, но и для нашего--%>
+    <%--                            Предприятия, непосредственно--%>
+    <%--                            осуществляющего перевозку груза, что позволяет нам позиционировать себя как надежного--%>
+    <%--                            делового партнера и дисциплинированного--%>
+    <%--                            игрока на рынке логистических услуг.--%>
+    <%--                        </p>--%>
+    <%--                        <a href="/purchasing" class="btn btn-primary"><spring:message code="readMore.main"/></a>--%>
+    <%--                    </div>--%>
+    <%--                </div>--%>
+    <%--            </div>--%>
+    <%--        </div>--%>
+    <%--    </div>--%>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
         crossorigin="anonymous"></script>

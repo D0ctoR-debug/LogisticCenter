@@ -4,30 +4,56 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "order_item")
+@Table(name = "order_items")
 public class OrderItem {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "order_item_id")
+    private long orderItemID;
 
-    @Column
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", nullable = false,
+            foreignKey = @ForeignKey(name = "order_item_order"))
+    private Order order;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "service_id", nullable = false,
+            foreignKey = @ForeignKey(name = "order_item_service"))
+    private Service service;
+
+    @Column(name = "quantity", nullable = false)
     private int quantity;
 
-//
-//
-//    @ManyToMany(mappedBy = "basketItems", fetch = FetchType.EAGER)
-//    private List<Service> services;
+    @Column(name = "price", nullable = false)
+    private double price;
 
+    @Column(name = "amount", nullable = false)
+    private double amount;
 
     public OrderItem() {
     }
 
-    public long getId() {
-        return id;
+    public OrderItem(Order order, Service service, int quantity, double price) {
+        this.order = order;
+        this.service = service;
+        this.quantity = quantity;
+        this.price = price;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public long getOrderItemID() {
+        return orderItemID;
+    }
+
+    public void setOrderItemID(long orderItemID) {
+        this.orderItemID = orderItemID;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public int getQuantity() {
@@ -38,11 +64,27 @@ public class OrderItem {
         this.quantity = quantity;
     }
 
-//    public List<Service> getServices() {
-//        return services;
-//    }
-//
-//    public void setServices(List<Service> services) {
-//        this.services = services;
-//    }
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
 }

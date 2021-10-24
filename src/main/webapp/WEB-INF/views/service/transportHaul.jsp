@@ -41,67 +41,39 @@
     <section>
         <div class="container-xxl">
             <div class="col-12 text-center">
-                <p>
-                    Новое направление по доставке нового транспорта функционирует с 2018 года, собрав опытную профессиональную команду водителей и специалистов. Работаем по всем направлениям из ЕС в СНГ и Среднюю Азию и в обратном направлении.               </p>
+                <h3><spring:message code="description.transport"/></h3>
             </div>
         </div>
     </section>
     <section>
         <div class="container-xxl">
-            <h2 id="Services">Checkout</h2>
-            <p>
-                <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Переключить первый элемент</a>
-            </p>
-            <div class="col">
-                <div class="collapse multi-collapse" id="multiCollapseExample1">
-                    <div class="card card-body">
-                        <ul>
-                            <li>Планировка зон хранения в соответствии с требуемыми объемами заказчика</li>
-                            <li>Организация специальных зон для возврата и блокировки</li>
-                            <li>Сверка остатков</li>
-                            <li>Инвентаризация с точностью 99,9%</li>
-                            <li>Контроль температуры и влажности</li>
-                            <li>Низкотемпературные зоны хранения</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <p>
-                <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Переключить первый элемент</a>
-            </p>
-            <div class="col">
-                <div class="collapse multi-collapse" id="multiCollapseExample2">
-                    <div class="card card-body">
-                        <ul>
-                            <li>Планировка зон хранения в соответствии с требуемыми объемами заказчика</li>
-                            <li>Организация специальных зон для возврата и блокировки</li>
-                            <li>Сверка остатков</li>
-                            <li>Инвентаризация с точностью 99,9%</li>
-                            <li>Контроль температуры и влажности</li>
-                            <li>Низкотемпературные зоны хранения</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <p>
-                <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Переключить первый элемент</a>
-            </p>
-            <div class="col">
-                <div class="collapse multi-collapse" id="multiCollapseExample3">
-                    <div class="card card-body">
-                        <ul>
-                            <li>Планировка зон хранения в соответствии с требуемыми объемами заказчика</li>
-                            <li>Организация специальных зон для возврата и блокировки</li>
-                            <li>Сверка остатков</li>
-                            <li>Инвентаризация с точностью 99,9%</li>
-                            <li>Контроль температуры и влажности</li>
-                            <li>Низкотемпературные зоны хранения</li>
-                        </ul>
+            <h2 id="Services"><spring:message code="order.transport"/></h2>
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row justify-content-between">
+                            <c:forEach var="el" items="${haul}">
+                                <div class="col">
+                                    <div class="card w-100">
+                                        <img src="${el.imageUrl}"
+                                             class="card-img-top" width="250" height="250" alt="Транспортная логистика">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                    ${el.name}
+                                            </h5>
+                                            <p class="card-text">${el.description}</p>
+                                            <a title="add to basket" href="/addToBasket?idService=${el.id}">Dpbavit'</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class BasketInfo {
     private ServiceInfo serviceInfo;
-    private double quantity;
+    private int quantity;
 
     public BasketInfo() {
         this.quantity = 0;
@@ -19,15 +19,16 @@ public class BasketInfo {
         this.serviceInfo = serviceInfo;
     }
 
-    public double getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(double quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
     public double getAmount() {
         return this.serviceInfo.getPrice() * this.quantity;
     }
+
 }

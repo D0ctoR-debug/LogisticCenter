@@ -1,4 +1,4 @@
 package com.finaproject.logistic.service.interfaces;
 
-public interface CharacteristicRepository {
+public interface CharacteristicService {
 }

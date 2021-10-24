@@ -1,11 +1,12 @@
 package com.finaproject.logistic.controller;
 
 import com.finaproject.logistic.entity.User;
+//import com.finaproject.logistic.model.Basket;
+//import com.finaproject.logistic.model.Basket;
 import com.finaproject.logistic.form.UserForm;
 import com.finaproject.logistic.model.Basket;
-import com.finaproject.logistic.service.UserService;
+import com.finaproject.logistic.service.UserServiceImpl;
 import com.finaproject.logistic.utils.Utils;
-import com.finaproject.logistic.validator.UserFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,16 +17,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import java.util.Locale;
 
 @Controller
 public class RegistrationController {
 
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @Autowired
-    public void setUserService(UserService userService) {
+    public void setUserService(UserServiceImpl userService) {
         this.userService = userService;
     }
 
@@ -37,6 +36,7 @@ public class RegistrationController {
     @GetMapping("/registration")
     public String registration(HttpServletRequest request, Model model) {
         Basket basket = Utils.getBasketInSession(request);
+//        model.addAttribute("userForm", new User());
         com.finaproject.logistic.model.User userInfo = basket.getUserInfo();
         UserForm userForm = new UserForm(userInfo);
         model.addAttribute("userForm", userForm);
@@ -55,14 +55,12 @@ public class RegistrationController {
             return "authorization/registration";
         }
         if (!userService.saveUser(userForm)) {
-            model.addAttribute("usernameError", "User with such login is already exist");
+            model.addAttribute("usernameError", "User with such username is already exist");
             return "authorization/registration";
         }
+        Basket basket = Utils.getBasketInSession(request);
+        com.finaproject.logistic.model.User userInfo =new com.finaproject.logistic.model.User(userForm);
+        basket.setUserInfo(userInfo);
         return "redirect:/";
     }
 }
-//    @RequestParam String name,
-//    @RequestParam String username,
-//    @RequestParam String password,
-//    @RequestParam String phoneNumber,
-//    @RequestParam String email

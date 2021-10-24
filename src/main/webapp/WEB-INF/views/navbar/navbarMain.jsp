@@ -1,4 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <header>
     <nav id="navbarUser" class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-xxl">
@@ -12,6 +13,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <sec:authorize access="hasRole('ADMIN')">
+                        <li class="nav-item">
+                            <a class="btn btn-secondary" href="/allUsers"><spring:message code="all.allUsers"/> </a>
+                        </li>
+                    </sec:authorize>
                     <li class="nav-item dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
                                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -36,8 +42,10 @@
                     </li>
                 </ul>
                 <div class="text-end">
+                    <sec:authorize access="hasRole('USER')">
                     <a role="button" class="btn btn-outline-success me-3" href="/userPage"><spring:message
                             code="profile.main"/></a>
+                    </sec:authorize>
                     <a role="button" class="btn btn-outline-danger me-3" href="/logout"><spring:message
                             code="signOut.main"/></a>
                     <a href="?lang=en"><img

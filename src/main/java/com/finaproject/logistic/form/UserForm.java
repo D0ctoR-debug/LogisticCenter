@@ -1,6 +1,6 @@
 package com.finaproject.logistic.form;
 
-import com.finaproject.logistic.controller.annotation.UniqueLogin;
+import com.finaproject.logistic.entity.annotations.UniqueLogin;
 import com.finaproject.logistic.model.User;
 
 public class UserForm {
@@ -19,21 +19,22 @@ public class UserForm {
     }
 
     public UserForm(User userInfo) {
-        if (userInfo!=null) {
+        if (userInfo != null) {
             this.name = userInfo.getName();
             this.username = userInfo.getUsername();
             this.password = userInfo.getPassword();
-            this.passwordConfirm=userInfo.getPasswordConfirm();
+            this.passwordConfirm = userInfo.getPasswordConfirm();
             this.phoneNumber = userInfo.getPhoneNumber();
             this.email = userInfo.getEmail();
         }
     }
+
     public UserForm(com.finaproject.logistic.entity.User userInfo) {
-        if (userInfo!=null) {
+        if (userInfo != null) {
             this.name = userInfo.getName();
             this.username = userInfo.getUsername();
             this.password = userInfo.getPassword();
-            this.passwordConfirm=userInfo.getPasswordConfirm();
+            this.passwordConfirm = userInfo.getPasswordConfirm();
             this.phoneNumber = userInfo.getPhoneNumber();
             this.email = userInfo.getEmail();
         }

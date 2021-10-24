@@ -1,9 +1,6 @@
-package com.finaproject.logistic.controller.annotation;
+package com.finaproject.logistic.entity.annotations;
 
-
-
-
-import com.finaproject.logistic.service.interfaces.UserRepository;
+import com.finaproject.logistic.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.ConstraintValidator;
@@ -11,7 +8,7 @@ import javax.validation.ConstraintValidatorContext;
 
 public class UniqueLoginValidation implements ConstraintValidator<UniqueLogin, String> {
     @Autowired
-    private UserRepository userRepository;
+    private UserService userRepository;
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
         return s != null && !userRepository.isLoginAlreadyInUse(s);

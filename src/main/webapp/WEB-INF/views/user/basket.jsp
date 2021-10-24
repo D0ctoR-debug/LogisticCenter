@@ -1,78 +1,199 @@
-<%--<%@ page contentType="text/html;charset=UTF-8" %>--%>
-<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
-<%--<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>--%>
-<%--<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>--%>
-<%--<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>--%>
-<%--<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>--%>
-<%--<html>--%>
-<%--<head>--%>
-<%--    <title><spring:message code=""/></title>--%>
-<%--    <%@include file="/WEB-INF/views/header/header_basketPage.jsp" %>--%>
-<%--</head>--%>
-<%--<body>--%>
-<%--<h2 align="center"><spring:message code="title.basketPage"/></h2>--%>
-<%--<c:if test="${basket == null || basket.basketInfos == null || basket.basketInfos.size()==0}">--%>
-<%--    <br><br>--%>
-<%--    <h2><spring:message code="noBasketItem.basketPage"/></h2>--%>
-<%--</c:if>--%>
-<%--<a title="Back to catalog for continue" href="/catalog"><img src="/images/online_shop.png" width="40" height="40">--%>
-<%--    <spring:message code="backCatalog.basketPage"/></a>--%>
-<%--<c:if test="${basket != null || basket.basketInfos != null || !basket.basketInfos.size()==0}">--%>
-<%--    <c:url value="/basket" var="getBasket"/>--%>
-<%--    <form:form method="post" action="${getBasket}" modelAttribute="basket">--%>
-<%--        <table border="1" cellpadding="10" class="table_blur" align="center">--%>
-<%--            <tr>--%>
-<%--                <th>№</th>--%>
-<%--                <th><spring:message code="productName.basketPage"/></th>--%>
-<%--                <th><spring:message code="productPrice.basketPage"/></th>--%>
-<%--                <th><spring:message code="productNewQuantity.basketPage"/></th>--%>
-<%--                <th><spring:message code="productCost.basketPage"/></th>--%>
-<%--                <th><spring:message code="userAction"/></th>--%>
-<%--            </tr>--%>
-<%--            <c:forEach var="item" items="${basket.basketInfos}" varStatus="status">--%>
-<%--                <form:hidden path="basketInfos[${status.index}].product.id"/>--%>
-<%--                <tr>--%>
-<%--                    <td>${status.index+1}</td>--%>
-<%--                    <td> ${item.product.name}</td>--%>
-<%--                    <td> ${item.product.price} </td>--%>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<html>
+<head>
+    <title>Basket</title>
+    <%@include file="/WEB-INF/views/navbar/navbarProfile.jsp" %>
+    <style>
+        .table_blur {
+            margin-left: auto;
+            margin-right: auto;
+            background: #f5ffff;
+            border-collapse: collapse;
+            text-align: center;
+        }
 
-<%--                    <td>--%>
-<%--                            <form:input path="basketInfos[${status.index}].quantity"/>--%>
-<%--                            <c:set var="amount" value="${item.amount}"/>--%>
-<%--                    <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${amount}"/></td>--%>
-<%--                    <td>--%>
-<%--                        <a title="Delete product from basket" href="/basket/delete?idProduct=${item.product.id}">--%>
-<%--                            <img src="/images/remove_from_basket.png" width="50px" height="50px"></a>--%>
-<%--                    </td>--%>
-<%--                </tr>--%>
-<%--            </c:forEach>--%>
-<%--            <tr>--%>
-<%--                <td colspan="3"></td>--%>
-<%--                <td><input type="image" value="Update quantity" src="/images/update.png" width="30px" height="30px"/>--%>
-<%--                    <spring:message code="updateQuantity.basketPage"/></td>--%>
-<%--                <td colspan="2"></td>--%>
-<%--            </tr>--%>
-<%--            <tr>--%>
-<%--                <td colspan="6"></td>--%>
-<%--            </tr>--%>
-<%--            <tr>--%>
-<%--                <td align="right" colspan="4"><spring:message code="totalCost.basketPage"/></td>--%>
-<%--                <td align="center">${basket.amountTotal}</td>--%>
-<%--                <td><sec:authorize access="isAuthenticated()">--%>
-<%--                    <form:hidden path="userInfo.id"/>--%>
-<%--                    <c:if test="${basket.amountTotal > 0}">--%>
-<%--                        <a title="Confirm order" href="/order"><img src="/images/confirm.png" width="40" height="40">--%>
-<%--                            <spring:message code="confirm.basketPage"/></a>--%>
-<%--                    </c:if>--%>
+        .table_blur th {
+            border-top: 1px solid #777777;
+            border-bottom: 1px solid #777777;
+            box-shadow: inset 0 1px 0 #999999, inset 0 -1px 0 #999999;
+            background: linear-gradient(#9595b6, #b5abf8);
+            color: white;
+            padding: 10px 15px;
+            position: relative;
+        }
 
-<%--                </sec:authorize>--%>
-<%--                    <br><br>--%>
-<%--                    <sec:authorize access="!isAuthenticated()">--%>
-<%--                        <h5><spring:message code="toContinue.basketPage"/></h5>--%>
-<%--                    </sec:authorize></td>--%>
-<%--            </tr>--%>
-<%--        </table>--%>
-<%--    </form:form>--%>
-<%--</c:if>--%>
-<%--</body>--%>
-<%--</html>--%>
+        .table_blur th:after {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 25%;
+            height: 25%;
+            width: 100%;
+            background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, .08));
+        }
+
+        .table_blur tr:nth-child(odd) {
+            background: #ebf3f9;
+        }
+
+        .table_blur th:first-child {
+            border-left: 1px solid #777777;
+            border-bottom: 1px solid #777777;
+            box-shadow: inset 1px 1px 0 #999999, inset 0 -1px 0 #999999;
+        }
+
+        .table_blur th:last-child {
+            border-right: 1px solid #777777;
+            border-bottom: 1px solid #777777;
+            box-shadow: inset -1px 1px 0 #999999, inset 0 -1px 0 #999999;
+        }
+
+        .table_blur td {
+            border: 1px solid #e3eef7;
+            padding: 10px 15px;
+            position: relative;
+            transition: all 0.5s ease;
+            word-wrap: break-word;
+        }
+
+        .table_blur tbody:hover td {
+            color: transparent;
+            text-shadow: 0 0 3px #a09f9d;
+            word-wrap: break-word;
+        }
+
+        .button-update-sc {
+            color: red;
+            margin: 5px 5px 5px 20px;
+        }
+
+        .table_blur tbody:hover tr:hover td {
+            color: #444444;
+            text-shadow: none;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<h2>Your Basket</h2>
+<br>
+<c:if test="${basket == null || basket.basketInfos == null || basket.basketInfos.size()==0}">
+    <br><br>
+    <h2>There is no items in basket</h2>
+</c:if>
+<a href="/main" class="btn btn-success">К покупкам</a>
+<c:if test="${basket != null || basket.basketInfos != null || basket.basketInfos.size()!=0}">
+    <c:url value="/basket" var="getBasket"/>
+    <form:form method="post" action="${getBasket}" modelAttribute="basket">
+        <table border="1" cellpadding="10" class="table_blur" align="center">
+            <tr>
+                <th>№</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity of characteristic</th>
+                <th>Cost</th>
+                <th>Action</th>
+            </tr>
+            <c:forEach var="item" items="${basket.basketInfos}" varStatus="status">
+                <form:hidden path="basketInfos[${status.index}].serviceInfo.id"/>
+                <tr>
+                    <td>${status.index+1}</td>
+                    <td> ${item.serviceInfo.name}</td>
+                    <td> ${item.serviceInfo.price} <c:if
+                            test="${item.serviceInfo.category.id==1||item.serviceInfo.category.id==3}">per/km</c:if>
+                        <c:if
+                                test="${item.serviceInfo.category.id==2||item.serviceInfo.category.id==5}">per/day</c:if>
+                    </td>
+                    <td>
+                        <form:input path="basketInfos[${status.index}].quantity"/> <c:if
+                            test="${item.serviceInfo.category.id==1||item.serviceInfo.category.id==3}">km(s)</c:if>
+                        <c:if
+                                test="${item.serviceInfo.category.id==2||item.serviceInfo.category.id==5}">day(s)</c:if></td>
+
+                    <c:set var="amount" value="${item.amount}"/>
+                    <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${amount}"/></td>
+                    <td>
+                        <a title="Delete product from basket" href="/basket/delete?idService=${item.serviceInfo.id}"
+                           class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            </c:forEach>
+            <tr>
+                <td colspan="3"></td>
+                <td><input type="submit" class="button-update-sc" value="Update Quantity"/>
+                </td>
+                <td colspan="2"></td>
+            </tr>
+            <tr>
+                <td colspan="6"></td>
+            </tr>
+            <tr>
+                <td align="right" colspan="4">Total Cost</td>
+                <td align="center">${basket.amountTotal}</td>
+                <td>
+                        <form:hidden path="userInfo.id"/>
+                    <c:if test="${basket.amountTotal > 0}">
+                    <a title="Confirm order" href="/order">Confirm</a>
+                    </c:if>
+
+                    <br><br>
+
+            </tr>
+        </table>
+    </form:form>
+</c:if>
+<%--<div class="row m-1">--%>
+<%--    <div class="col-sm-8">--%>
+<%--        <c:forEach var="item" varStatus="status" items="${basket.basketInfos}">--%>
+<%--            &lt;%&ndash;            <form:hidden path="basketItemns[${status.index}].service.id"/>&ndash;%&gt;--%>
+<%--            <div class="row border rounded">--%>
+<%--                <div class="col-1">--%>
+<%--                    <div>${status.count}</div>--%>
+<%--                    <div><a href="/" class="btn btn-danger">Remove</a></div>--%>
+<%--                </div>--%>
+<%--                <div class="col-3">--%>
+<%--                    <img src="${item.serviceInfo.imageUrl}" alt="Фото" class="img-fluid"/>--%>
+<%--                </div>--%>
+<%--                <div class="col-6">--%>
+<%--                    <div>--%>
+<%--                        <a>--%>
+<%--                            <b>${item.serviceInfo.name}</b>--%>
+<%--                        </a>--%>
+<%--                    </div>--%>
+<%--                    <div><input type="number" value="${item.quantity}" class="form-control"></div>--%>
+<%--                    <span>X</span>--%>
+<%--                    <span>${item.serviceInfo.price}</span>--%>
+<%--                    <span>=</span><span class="h4">Subtotal</span>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--            <div class="rom m-1">&nbsp;</div>--%>
+<%--        </c:forEach>--%>
+
+<%--        <a href="/main" class="btn btn-success">Вернутся на главную страницу</a>--%>
+<%--    </div>--%>
+<%--    <div class="col-sm-4">--%>
+<%--        <div>--%>
+<%--            <span class="h3">Estimated total:</span><br>--%>
+<%--        </div>--%>
+<%--        <div class="mt-2">--%>
+<%--            <span class="h2">Total</span>--%>
+<%--        </div>--%>
+<%--        <div class="btn btn-danger">Check Out</div>--%>
+<%--    </div>--%>
+<%--</div>--%>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+</body>
+</html>

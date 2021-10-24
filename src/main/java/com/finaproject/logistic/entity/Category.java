@@ -18,7 +18,14 @@ public class Category {
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     List<Service> services;
+    @Column
+    private String image;
 
+    public Category(String name, String description, String image) {
+        this.name = name;
+        this.description = description;
+        this.image = image;
+    }
 
     public long getId() {
         return id;
@@ -60,5 +67,13 @@ public class Category {
 
     public void setServices(List<Service> services) {
         this.services = services;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

@@ -1,4 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <header>
     <nav id="navbarUser" class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-xxl">
@@ -12,9 +13,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="basket.jsp"><spring:message code="basket.profile"/></a>
-                    </li>
+<%--                    <sec:authorize access="!hasRole('ADMIN')">--%>
+<%--                    <li class="nav-item">--%>
+<%--                        <a class="nav-link" href="/basket"><spring:message code="basket.profile"/></a>--%>
+<%--                    </li>--%>
+<%--                    </sec:authorize>--%>
 <%--                    <li class="nav-item">--%>
 <%--                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>--%>
 <%--                    </li>--%>

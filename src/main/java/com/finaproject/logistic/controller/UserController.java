@@ -1,10 +1,14 @@
 package com.finaproject.logistic.controller;
 
 import com.finaproject.logistic.entity.Category;
+import com.finaproject.logistic.entity.Order;
+import com.finaproject.logistic.entity.Service;
 import com.finaproject.logistic.entity.User;
 import com.finaproject.logistic.repository.CategoryDAO;
 import com.finaproject.logistic.repository.UserDAO;
-import com.finaproject.logistic.service.interfaces.UserRepository;
+import com.finaproject.logistic.service.interfaces.OrderService;
+import com.finaproject.logistic.service.interfaces.ServiceService;
+import com.finaproject.logistic.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -25,6 +30,18 @@ public class UserController {
 
     private UserDAO userDAO;
     private CategoryDAO categoryDAO;
+    private OrderService orderService;
+    private ServiceService serviceService;
+
+    @Autowired
+    public void setOrderService(OrderService orderService) {
+        this.orderService = orderService;
+    }
+
+    @Autowired
+    public void setServiceService(ServiceService serviceService) {
+        this.serviceService = serviceService;
+    }
 
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
@@ -38,8 +55,8 @@ public class UserController {
 
     @GetMapping("/main")
     public String userMain(Model model, @AuthenticationPrincipal UserDetails currentUser) {
-//        Iterable<Category> categories = categoryDAO.findAll();
-//        model.addAttribute("categories", categories);
+        Iterable<Category> categories = categoryDAO.findAll();
+        model.addAttribute("categories", categories);
         User user = userDAO.findByUsername(currentUser.getUsername());
         model.addAttribute("currentUser", user);
         return "user/mainPage";
@@ -76,7 +93,8 @@ public class UserController {
                            @RequestParam String phoneNumber,
                            Model model) {
 
-        User user = userDAO.findById(id).orElseThrow();
+        User user;
+        user = userDAO.getById(id);
         user.setName(name);
         user.setEmail(email);
         user.setPhoneNumber(phoneNumber);
@@ -84,5 +102,16 @@ public class UserController {
         return "redirect:/userPage";
     }
 
+
+    @GetMapping("/orderHistory")
+    public String getOrdersList(HttpServletRequest request, Model model,
+                                @AuthenticationPrincipal UserDetails currentUser) {
+        User user = userDAO.findByUsername(currentUser.getUsername());
+        List<Service> services = serviceService.returnAllServices();
+        model.addAttribute("services", services);
+        List<Order> orders = orderService.returnAllOrdersByUserId(user.getId());
+        model.addAttribute("orders", orders);
+        return "user/orderHistory";
+    }
 
 }

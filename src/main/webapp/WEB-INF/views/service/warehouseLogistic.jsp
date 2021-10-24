@@ -131,66 +131,44 @@
             </div>
         </div>
     </section>
-    <%--    <form action="/warehouse" method="post">--%>
-    <%--        <div class="calc">--%>
-    <%--            <h3>Calculator</h3>--%>
-    <%--        </div>--%>
-    <%--        <input type="number" name="tons" placeholder="вес груза в тоннах">--%>
-    <%--        <p>Da</p>--%>
-    <%--        <input type="number" name="days" placeholder="кол-во дней">--%>
-    <%--        <p>Da</p>--%>
-    <%--        <button type="submit">Sub</button>--%>
-    <div class="stoimost">
-        <%--        <h2>REsult = <c:out value="${result}"/></h2>--%>
-    </div>
-    <%--    <div class="container mt-5">--%>
-    <%--        <div class="alert alert-info mt-2">--%>
-    <%--            <c:forEach var="el" items="${services}">--%>
-    <%--                <h3><c:out value="${el.name}"/></h3>--%>
-    <%--            </c:forEach>--%>
-    <%--        </div>--%>
-    <%--    </div>--%>
-    <%--    </form>--%>
-    <c:forEach var="el" items="${service}">
-        <h3><c:out value="${el.name}"/></h3>
-        <p><c:out value="${el.description}"/></p>
-        <p>Цена  <c:out value="${el.price}"/></p>
-        <%--        <label>--%>
-        <%--            <input type="number" name="tons" placeholder="вес груза в тоннах">--%>
-        <%--        </label>--%>
-        <form method="post" action="/warehouse">
-            <label for="tons"></label><br>
-            <input type="number" name="tons" required id="tons" placeholder="Tons">
-            <label for="days"></label><br>
-            <input type="number" name="days" required id="days" placeholder="Hours">
-            <button>Calculate</button><br>
-            <button>Добавить в корзину</button>
-<%--            <div class="calc">--%>
-<%--                <h3>Calculator</h3>--%>
-<%--            </div>--%>
-<%--            <input type="number" id="tons" placeholder="вес груза в тоннах"/>--%>
-<%--            <input type="number" id="hours" placeholder="кол-во дней"/>--%>
-<%--            <button type="submit">But</button>--%>
-<%--            <c:out value="${per}"/>--%>
-<%--            <c:out value="${perper}"/>--%>
-<%--            <h3>Result = <c:out value="${per*perper}"/></h3>--%>
-        </form>
-
-        <%--        <form action="/warehouse" method="post">--%>
-        <%--            <div class="calc">--%>
-        <%--                <h3>Calculator</h3>--%>
-        <%--            </div>--%>
-        <%--            <input type="number" name="tons" placeholder="вес груза в тоннах">--%>
-        <%--            <p>Da</p>--%>
-        <%--            <input type="number" name="days" placeholder="кол-во дней">--%>
-        <%--            <p>Da</p>--%>
-        <%--            <div class="stoimost">--%>
-        <%--                <h2>REsult = <c:out value="${rsu*el.pricePerTon * el.pricePerName}"/></h2>--%>
-        <%--            </div>--%>
-        <%--            <button type="submit">Sub</button>--%>
-        <%--        </form>--%>
-        <a title="add to basket" href="/addToBasket">ADD</a>
-    </c:forEach>
+    <section>
+        <div class="container-xxl">
+            <div class="col-12 text-center">
+                <h3><spring:message code="description.transport"/></h3>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container-xxl">
+            <h2 id="Services"><spring:message code="order.transport"/></h2>
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row justify-content-between">
+                            <c:forEach var="el" items="${warehouse}">
+                                <div class="col">
+                                    <div class="card w-100">
+                                        <img src="${el.imageUrl}"
+                                             class="card-img-top" width="250" height="250" alt="Транспортная логистика">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                    ${el.name}
+                                            </h5>
+                                            <p class="card-text">
+                                                    ${el.description}
+                                            </p>
+                                            <a title="add to basket" href="/addToBasket?idService=${el.id}">Dpbavit'</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Basket {
 
-    private int orderNum;
+    private long orderNum;
     private User userInfo;
     private final List<BasketInfo> basketInfos = new ArrayList<>();
 
@@ -13,16 +13,16 @@ public class Basket {
 
     }
 
-    public int getOrderNum() {
+    public long getOrderNum() {
         return orderNum;
     }
 
-    public void setOrderNum(int orderNum) {
+    public void setOrderNum(long orderNum) {
         this.orderNum = orderNum;
     }
 
     public List<BasketInfo> getBasketInfos() {
-        return this.basketInfos;
+        return basketInfos;
     }
 
     public User getUserInfo() {
@@ -42,17 +42,24 @@ public class Basket {
         return null;
     }
 
-    private BasketInfo findLineById(long id) {
+    public double getQuantityTotal() {
+        double quantity = 0;
         for (BasketInfo basketInfo : this.basketInfos) {
-            if (basketInfo.getServiceInfo().getId() == id) {
-                return basketInfo;
-            }
+            quantity += basketInfo.getQuantity();
         }
-        return null;
+        return quantity;
     }
 
-    public void addProduct(ServiceInfo serviceInfo, double quantity) {
-        BasketInfo basketInfo = this.findLineById(serviceInfo.getId());
+    public double getAmountTotal() {
+        double total = 0;
+        for (BasketInfo basketInfo : this.basketInfos) {
+            total += basketInfo.getAmount();
+        }
+        return total;
+    }
+
+    public void addProduct(ServiceInfo serviceInfo, int quantity) {
+        BasketInfo basketInfo = this.findById(serviceInfo.getId());
 
         if (basketInfo == null) {
             basketInfo = new BasketInfo();
@@ -60,7 +67,7 @@ public class Basket {
             basketInfo.setServiceInfo(serviceInfo);
             this.basketInfos.add(basketInfo);
         }
-        double newQuantity = basketInfo.getQuantity() + quantity;
+        int newQuantity = basketInfo.getQuantity() + quantity;
         if (newQuantity <= 0) {
             this.basketInfos.remove(basketInfo);
         } else {
@@ -68,7 +75,7 @@ public class Basket {
         }
     }
 
-    public void updateProduct(long serviceID, double quantity) {
+    public void updateProduct(long serviceID, int quantity) {
         BasketInfo basketInfo = this.findById(serviceID);
         if (basketInfo != null) {
             if (quantity <= 0) {
@@ -78,6 +85,7 @@ public class Basket {
             }
         }
     }
+
     public void updateQuantity(Basket basketForm) {
         if (basketForm != null) {
             List<BasketInfo> basketInfos = basketForm.getBasketInfos();
@@ -87,4 +95,13 @@ public class Basket {
         }
 
     }
+
+    public void removeService(ServiceInfo serviceInfo) {
+        BasketInfo basketInfo = this.findById(serviceInfo.getId());
+        if (basketInfo != null) {
+            this.basketInfos.remove(basketInfo);
+        }
+    }
+
+
 }

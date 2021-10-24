@@ -1,4 +1,4 @@
 package com.finaproject.logistic.service;
 
-public class CharacteristicService {
+public class CharacteristicServiceImpl {
 }

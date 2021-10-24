@@ -1,18 +1,13 @@
 package com.finaproject.logistic.entity;
 
-import com.finaproject.logistic.controller.annotation.UniqueLogin;
-import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class User implements UserDetails, Serializable {
@@ -43,19 +38,28 @@ public class User implements UserDetails, Serializable {
     @Email(message = "Email should be valid")
     private String email;
 
-    @Transient
+//    @Column(name = "discount")
+//    private double discount;
 
+    @Transient
     private String passwordConfirm;
 
-    @ManyToMany
-    @JoinColumn(name = "role_id")
-    private Set<Role> role;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @JoinTable(name = "user_role",
+            joinColumns = {
+                    @JoinColumn(name = "user_id")},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "role_id")})
+    private Set<Role> role = new HashSet<>();
 
     @OneToOne(mappedBy = "user")
     private Basket basket;
 
-    @OneToOne(mappedBy = "user")
-    private Orders orders;
+    @Transient
+    private final boolean isActive = true;
+
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
 
     public User() {
     }
@@ -114,8 +118,17 @@ public class User implements UserDetails, Serializable {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<GrantedAuthority> list = new ArrayList<>();
+        for (Role role : role) {
+            list.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return list;
     }
+
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return null;
+//    }
 
     public String getPassword() {
         return password;
@@ -141,21 +154,6 @@ public class User implements UserDetails, Serializable {
         this.role = role;
     }
 
-    public Basket getBasket() {
-        return basket;
-    }
-
-    public void setBasket(Basket basket) {
-        this.basket = basket;
-    }
-
-    public Orders getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Orders orders) {
-        this.orders = orders;
-    }
 
     public String getEmail() {
         return email;
@@ -171,5 +169,34 @@ public class User implements UserDetails, Serializable {
 
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public Basket getBasket() {
+        return basket;
+    }
+
+    public void setBasket(com.finaproject.logistic.model.Basket basketInSession) {
+    }
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public static UserDetails fromUser(User user) {
+        return new org.springframework.security.core.userdetails.User(
+                user.getUsername(), user.getPassword(),
+                user.isActive(),
+                user.isActive(),
+                user.isActive(),
+                user.isActive(),
+                user.getAuthorities()
+        );
     }
 }

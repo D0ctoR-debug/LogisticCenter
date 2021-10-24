@@ -17,13 +17,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="/resources/css/puchasingLogistic.css">
+    <link href="<c:url value="/static/js/addToBasket.js"/>" rel="stylesheet">
+
     <style>
         .Purchasing {
             background-image: url(https://catherineasquithgallery.com/uploads/posts/2021-02/1614248697_20-p-belo-zhelto-chernii-fon-24.jpg);
             color: black;
         }
     </style>
-    <%@include file="/WEB-INF/views/navbar/navbarService.jsp"%>
+    <%@include file="/WEB-INF/views/navbar/navbarService.jsp" %>
 </head>
 <body>
 <div class="Transport">
@@ -51,49 +53,53 @@
                     <div class="carousel-item active">
                         <div class="row justify-content-between">
                             <c:forEach var="el" items="${transport}">
-                            <div class="col">
-                                <div class="card w-100">
-                                    <img src="${el.imageUrl}"
-                                         class="card-img-top" width="250" height="250" alt="Транспортная логистика">
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            ${el.name}
-<%--                                            <spring:message code="firstType.transport"/>--%>
-                                        </h5>
-                                        <p class="card-text">
-                                            ${el.description}
-<%--                                            <spring:message code="firstTypeDescription.transport"/>--%>
-                                        </p>
-                                        <a role="button" class="btn btn-primary" data-bs-toggle="modal"
-                                           data-bs-target="#order" href="#order"><spring:message code="order.transport"/></a>
+                                <div class="col">
+                                    <div class="card w-100">
+                                        <img src="${el.imageUrl}"
+                                             class="card-img-top" width="250" height="250" alt="Транспортная логистика">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                    ${el.name}
+                                                    <%--                                            <spring:message code="firstType.transport"/>--%>
+                                            </h5>
+                                            <p class="card-text">
+                                                    ${el.description}
+                                                    <%--                                            <spring:message code="firstTypeDescription.transport"/>--%>
+                                            </p>
+                                            <a title="add to basket" href="/addToBasket?idService=${el.id}">Dpbavit'</a>
+                                                <%--                                        <a role="button" class="btn btn-primary" data-bs-toggle="modal"--%>
+                                                <%--                                           data-bs-target="#order" href="#order"><spring:message code="order.transport"/></a>--%>
+<%--                                            <button class="btn btn-primary" id="addToBasket">Add to Basket</button>--%>
+<%--                                            <script src="js/addToBasket.js"></script>--%>
+                                                <%--                                            <a title="add to basket" href="/addToBasket?idService=${el.id}"/>">Сюда</a>--%>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             </c:forEach>
-<%--                            <div class="col">--%>
-<%--                                <div class="card w-100">--%>
-<%--                                    <img src="https://im0-tub-by.yandex.net/i?id=a6cd78f8221393e119edc4a9859e4892&n=13"--%>
-<%--                                         class="card-img-top" width="250" height="250" alt="Складская логистика">--%>
-<%--                                    <div class="card-body">--%>
-<%--                                        <h5 class="card-title"><spring:message code="secondType.transport"/></h5>--%>
-<%--                                        <p class="card-text"><spring:message code="secondTypeDescription.transport"/></p>--%>
-<%--                                        <a role="button" class="btn btn-primary" data-bs-toggle="modal"--%>
-<%--                                           data-bs-target="#order" href="#order"><spring:message code="order.transport"/></a>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                            <div class="col">--%>
-<%--                                <div class="card w-100">--%>
-<%--                                    <img src="https://avatars.mds.yandex.net/get-zen_doc/2404796/pub_60019eb90cf4a170b932fc60_6001b26efd62ee068979de07/scale_1200"--%>
-<%--                                         class="card-img-top" width="250" height="250" alt="Перегон транспорта">--%>
-<%--                                    <div class="card-body">--%>
-<%--                                        <h5 class="card-title"><spring:message code="thirdType.transport"/></h5>--%>
-<%--                                        <p class="card-text"><spring:message code="thirdTypeDescription.transport"/></p>--%>
-<%--                                        <a role="button" class="btn btn-primary" data-bs-toggle="modal"--%>
-<%--                                           data-bs-target="#order" href="#order"><spring:message code="order.transport"/></a>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
+                            <%--                            <div class="col">--%>
+                            <%--                                <div class="card w-100">--%>
+                            <%--                                    <img src="https://im0-tub-by.yandex.net/i?id=a6cd78f8221393e119edc4a9859e4892&n=13"--%>
+                            <%--                                         class="card-img-top" width="250" height="250" alt="Складская логистика">--%>
+                            <%--                                    <div class="card-body">--%>
+                            <%--                                        <h5 class="card-title"><spring:message code="secondType.transport"/></h5>--%>
+                            <%--                                        <p class="card-text"><spring:message code="secondTypeDescription.transport"/></p>--%>
+                            <%--                                        <a role="button" class="btn btn-primary" data-bs-toggle="modal"--%>
+                            <%--                                           data-bs-target="#order" href="#order"><spring:message code="order.transport"/></a>--%>
+                            <%--                                    </div>--%>
+                            <%--                                </div>--%>
+                            <%--                            </div>--%>
+                            <%--                            <div class="col">--%>
+                            <%--                                <div class="card w-100">--%>
+                            <%--                                    <img src="https://avatars.mds.yandex.net/get-zen_doc/2404796/pub_60019eb90cf4a170b932fc60_6001b26efd62ee068979de07/scale_1200"--%>
+                            <%--                                         class="card-img-top" width="250" height="250" alt="Перегон транспорта">--%>
+                            <%--                                    <div class="card-body">--%>
+                            <%--                                        <h5 class="card-title"><spring:message code="thirdType.transport"/></h5>--%>
+                            <%--                                        <p class="card-text"><spring:message code="thirdTypeDescription.transport"/></p>--%>
+                            <%--                                        <a role="button" class="btn btn-primary" data-bs-toggle="modal"--%>
+                            <%--                                           data-bs-target="#order" href="#order"><spring:message code="order.transport"/></a>--%>
+                            <%--                                    </div>--%>
+                            <%--                                </div>--%>
+                            <%--                            </div>--%>
                         </div>
                     </div>
                 </div>
@@ -124,8 +130,10 @@
                     <div class="col">
                         <p><spring:message code="result.transport"/>: </p>
                     </div>
-                    <button type="submit" class="btn btn-success"><spring:message code="addToBasket.transport"/></button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><spring:message code="closeModal.transport"/></button>
+                    <button type="submit" class="btn btn-success"><spring:message
+                            code="addToBasket.transport"/></button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><spring:message
+                            code="closeModal.transport"/></button>
                 </form>
             </div>
         </div>

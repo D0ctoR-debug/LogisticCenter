@@ -9,11 +9,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import java.util.List;
 
 
-public interface UserRepository extends UserDetailsService {
+public interface UserService extends UserDetailsService {
 
     boolean isLoginAlreadyInUse(String login);
 
     boolean saveUser(User user);
 
     UserDetails loadUserByUsername(String s) throws UsernameNotFoundException;
+
+    User returnUserByUsername(String username);
 }
