@@ -4,9 +4,11 @@ import com.finaproject.logistic.entity.Order;
 import com.finaproject.logistic.entity.OrderItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface OrderItemDAO extends JpaRepository<OrderItem, Long> {
 
     @Query(value = "select oi.order from OrderItem oi where oi.service.id=:id")

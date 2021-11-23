@@ -6,8 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserDAO extends JpaRepository<User, Long> {
-
     User findByUsername(String username);
-//    @Query(value = "select role.users from Role role where role.id=:id")
-//    List<User> findAllByRoleID(int id);
+
+    void deleteUserById(long id);
 }

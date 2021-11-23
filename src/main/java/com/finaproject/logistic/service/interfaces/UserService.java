@@ -18,4 +18,7 @@ public interface UserService extends UserDetailsService {
     UserDetails loadUserByUsername(String s) throws UsernameNotFoundException;
 
     User returnUserByUsername(String username);
+
+    void deleteUser(long id);
+
 }

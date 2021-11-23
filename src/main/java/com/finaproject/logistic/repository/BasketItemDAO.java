@@ -16,6 +16,4 @@ public interface BasketItemDAO extends JpaRepository<BasketItem, Long> {
 
     BasketItem findByUserAndService(User user, Service service);
 
-
-//    List<BasketItem> findBy
 }

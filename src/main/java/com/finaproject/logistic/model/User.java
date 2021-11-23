@@ -10,7 +10,7 @@ public class User {
     private long id;
     private String name;
     private String username;
-    private double discount;
+    //    private double discount;
     private String password;
     private String passwordConfirm;
     private String phoneNumber;

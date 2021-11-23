@@ -19,11 +19,6 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public double calculatePriceOfWarehouse(double tons, double hours) {
-        return (tons * hours);
-    }
-
-    @Override
     @Transactional
     public Service returnServiceById(long id) {
         return daoService.getById(id);
@@ -33,13 +28,5 @@ public class ServiceServiceImpl implements ServiceService {
     public List<Service> returnAllServices() {
         return daoService.findAll();
     }
-    //    @Override
-//    public Service returnServiceById(long id) {
-//        return daoService.getOne(id);
-//    }
-
-//    public boolean saveTransportToBasket(Service service){
-//
-//    }
 
 }

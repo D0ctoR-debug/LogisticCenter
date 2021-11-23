@@ -10,7 +10,6 @@
     <title>Main</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <%--    <link rel="stylesheet" href="mainPage.css">--%>
     <style>
         section {
             padding-top: 50px;
@@ -18,7 +17,7 @@
         }
 
         .sec-1 {
-            background-image: url(https://st.depositphotos.com/1000128/2546/i/600/depositphotos_25462441-stock-photo-modern-business-buildings.jpg);
+            background-image: url(https://avatars.mds.yandex.net/i?id=b58ffe6d77150853667193f8acbf6b89-5396308-images-thumbs&n=13);
             background-attachment: fixed;
             background-position: center;
             background-repeat: no-repeat;
@@ -96,6 +95,128 @@
             margin-right: auto;
             margin-left: auto;
         }
+
+        .col_white_amrc {
+            color: #FFF;
+        }
+
+        footer {
+            width: 100%;
+            background-color: #263238;
+            min-height: 250px;
+            padding: 10px 0px 25px 0px;
+        }
+
+        .pt2 {
+            padding-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        footer p {
+            font-size: 13px;
+            color: #CCC;
+            padding-bottom: 0px;
+            margin-bottom: 8px;
+        }
+
+        .mb10 {
+            padding-bottom: 15px;
+        }
+
+        .footer_ul_amrc {
+            margin: 0px;
+            list-style-type: none;
+            font-size: 14px;
+            padding: 0px 0px 10px 0px;
+        }
+
+        .footer_ul_amrc li {
+            padding: 0px 0px 5px 0px;
+        }
+
+        .footer_ul_amrc li a {
+            color: #CCC;
+        }
+
+        .footer_ul_amrc li a:hover {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .fleft {
+            float: left;
+        }
+
+        .padding-right {
+            padding-right: 10px;
+        }
+
+        .footer_ul2_amrc {
+            margin: 0px;
+            list-style-type: none;
+            padding: 0px;
+        }
+
+        .footer_ul2_amrc li p {
+            display: table;
+        }
+
+        .footer_ul2_amrc li a:hover {
+            text-decoration: none;
+        }
+
+        .footer_ul2_amrc li i {
+            margin-top: 5px;
+        }
+
+        .bottom_border {
+            border-bottom: 1px solid #323f45;
+            padding-bottom: 20px;
+        }
+
+        .foote_bottom_ul_amrc {
+            list-style-type: none;
+            padding: 0px;
+            display: table;
+            margin-top: 10px;
+            margin-right: auto;
+            margin-bottom: 10px;
+            margin-left: auto;
+        }
+
+        .foote_bottom_ul_amrc li {
+            display: inline;
+        }
+
+        .foote_bottom_ul_amrc li a {
+            color: #999;
+            margin: 0 12px;
+        }
+
+        .social_footer_ul {
+            display: table;
+            margin: 15px auto 0 auto;
+            list-style-type: none;
+        }
+
+        .social_footer_ul li {
+            padding-left: 20px;
+            padding-top: 10px;
+            float: left;
+        }
+
+        .social_footer_ul li a {
+            color: #CCC;
+            border: 1px solid #CCC;
+            padding: 8px;
+            border-radius: 50%;
+        }
+
+        .social_footer_ul li i {
+            width: 20px;
+            height: 20px;
+            text-align: center;
+        }
     </style>
     <%@include file="/WEB-INF/views/navbar/navbarMain.jsp" %>
 </head>
@@ -115,14 +236,15 @@
             </div>
         </div>
     </section>
+    <div class="background">
     <section>
         <div class="container-xxl">
             <div class="row align-items-center">
                 <div class="col-7">
                     <h4><spring:message code="description.main"/></h4><br>
-<%--                    <sec:authorize access="hasRole('ADMIN')">--%>
-<%--                        <a href="#" class="btn-btn-primary">Change description</a>--%>
-<%--                    </sec:authorize>--%>
+                    <%--                    <sec:authorize access="hasRole('ADMIN')">--%>
+                    <%--                        <a href="#" class="btn-btn-primary">Change description</a>--%>
+                    <%--                    </sec:authorize>--%>
                 </div>
                 <div class="col-5 g-5">
                     <img class="w-100"
@@ -134,10 +256,12 @@
     </section>
     <div class="container-xxl">
         <h2 id="Services"><spring:message code="service.start"/> <sec:authorize access="hasRole('ADMIN')"><a
-                class="btn btn-primary" href="/addCategory"><spring:message code="addCategory.main"/></a></sec:authorize></h2>
+                class="btn btn-primary" href="/addCategory"><spring:message
+                code="addCategory.main"/></a></sec:authorize></h2>
     </div>
-    <c:forEach var="el" items="${categories}">
+    <c:forEach var="el" items="${categories}" varStatus="status">
         <c:if test="${el.id%2!=0}">
+
             <div class="container-xxl">
                 <div class="col-sm-12 col-lg-12">
                     <div class="row justify-content-start">
@@ -148,22 +272,22 @@
                                 <br>
                             </div>
                             <div class="col-sm-12 col-lg-6 text_logistics">
-                                <h3 id="TransportLog">
+                                <h3 id="${el.id}">
                                     <c:out value="${el.name}"/>
-                                        <%--                            <spring:message code="dropdownTransport.start"/>--%>
                                 </h3>
                                 <p class="services_p">
-                                    <c:out value="${el.description}"/>
-                                        <%--                            <spring:message code="descriptionForTransportLogistic"/>--%>
+                                    <c:out value="${el.shortDescription}"/>
                                 </p>
                                 <a href="/category/<c:out value="${el.id}"/>" class="btn btn-primary"><spring:message
                                         code="readMore.main"/></a>
                                 <sec:authorize access="hasAnyRole('ADMIN','MANAGER')">
-                                    <a href="/category/${el.id}/edit" class="btn btn-secondary"><spring:message code="editCategory.main"/></a>
+                                    <a href="/category/${el.id}/edit" class="btn btn-secondary"><spring:message
+                                            code="editCategory.main"/></a>
                                 </sec:authorize>
                                 <sec:authorize access="hasRole('ADMIN')">
                                     <form action="/category/${el.id}/delete" method="post">
-                                        <button type="submit" class="btn btn-danger"><spring:message code="deleteCategory.main"/></button>
+                                        <button type="submit" class="btn btn-danger"><spring:message
+                                                code="deleteCategory.main"/></button>
                                     </form>
                                 </sec:authorize>
                             </div>
@@ -179,30 +303,22 @@
                     <div class="row justify-content-center">
                         <div class="services">
                             <div class="col-sm-12 col-lg-6 text_logistics">
-                                <h3 id="WarehouseLog">
+                                <h3 id="${el.id}">
                                     <c:out value="${el.name}"/>
-                                        <%--                                    <spring:message code="dropdownWarehouse.start"/>--%>
                                 </h3>
                                 <p class="services_p">
-                                    <c:out value="${el.description}"/>
-                                        <%--                                    Транспортно-экспедиционная деятельность является неотъемлемым элементом эффективного--%>
-                                        <%--                                    осуществления перевозок грузов--%>
-                                        <%--                                    не только для клиента, оптимизируя его финансовые, трудовые и иные затраты, но и для--%>
-                                        <%--                                    нашего--%>
-                                        <%--                                    Предприятия, непосредственно--%>
-                                        <%--                                    осуществляющего перевозку груза, что позволяет нам позиционировать себя как--%>
-                                        <%--                                    надежного--%>
-                                        <%--                                    делового партнера и дисциплинированного--%>
-                                        <%--                                    игрока на рынке логистических услуг.--%>
+                                    <c:out value="${el.shortDescription}"/>
                                 </p>
                                 <a href="/category/<c:out value="${el.id}"/>" class="btn btn-primary"><spring:message
                                         code="readMore.main"/></a>
                                 <sec:authorize access="hasAnyRole('ADMIN','MANAGER')">
-                                    <a href="/category/${el.id}/edit" class="btn btn-secondary"><spring:message code="editCategory.main"/></a>
+                                    <a href="/category/${el.id}/edit" class="btn btn-secondary"><spring:message
+                                            code="editCategory.main"/></a>
                                 </sec:authorize>
                                 <sec:authorize access="hasRole('ADMIN')">
                                     <form action="/category/${el.id}/delete" method="post">
-                                        <button type="submit" class="btn btn-danger"><spring:message code="deleteCategory.main"/></button>
+                                        <button type="submit" class="btn btn-danger"><spring:message
+                                                code="deleteCategory.main"/></button>
                                     </form>
                                 </sec:authorize>
                             </div>
@@ -216,128 +332,12 @@
                 </div>
             </div>
             <br><br><br><br><br><br>
+
         </c:if>
     </c:forEach>
-    <%--    <div class="container-xxl">--%>
-    <%--        <div class="col-sm-12 col-lg-12">--%>
-    <%--            <div class="row justify-content-center">--%>
-    <%--                <div class="services">--%>
-    <%--                    <div class="col-sm-12 col-lg-6 text_logistics">--%>
-    <%--                        <h3 id="WarehouseLog">--%>
-    <%--                            <spring:message code="dropdownWarehouse.start"/>--%>
-    <%--                        </h3>--%>
-    <%--                        <p class="services_p">--%>
-    <%--                            Транспортно-экспедиционная деятельность является неотъемлемым элементом эффективного--%>
-    <%--                            осуществления перевозок грузов--%>
-    <%--                            не только для клиента, оптимизируя его финансовые, трудовые и иные затраты, но и для нашего--%>
-    <%--                            Предприятия, непосредственно--%>
-    <%--                            осуществляющего перевозку груза, что позволяет нам позиционировать себя как надежного--%>
-    <%--                            делового партнера и дисциплинированного--%>
-    <%--                            игрока на рынке логистических услуг.--%>
-    <%--                        </p>--%>
-    <%--                        <a href="/warehouse" class="btn btn-primary"><spring:message code="readMore.main"/></a>--%>
-    <%--                    </div>--%>
-    <%--                    <div class="col-sm-12 col-lg-6">--%>
-    <%--                        <img class="img_logistics"--%>
-    <%--                             src="https://im0-tub-by.yandex.net/i?id=a6cd78f8221393e119edc4a9859e4892&n=13">--%>
-    <%--                        <br>--%>
-    <%--                    </div>--%>
-    <%--                </div>--%>
-    <%--            </div>--%>
-    <%--        </div>--%>
-    <%--    </div>--%>
-    <%--    <br><br><br><br><br><br>--%>
-    <%--    <div class="container-xxl">--%>
-    <%--        <div class="col-sm-12 col-lg-12" data-wow-offset="300">--%>
-    <%--            <div class="row justify-content-start">--%>
-    <%--                <div class="services">--%>
-    <%--                    <div class="col-sm-12 col-lg-7">--%>
-    <%--                        <img class="img_logistics"--%>
-    <%--                             src="https://avatars.mds.yandex.net/get-zen_doc/2404796/pub_60019eb90cf4a170b932fc60_6001b26efd62ee068979de07/scale_1200">--%>
-    <%--                        <br>--%>
-    <%--                    </div>--%>
-    <%--                    <div class="col-sm-12 col-lg-5 text_logistics">--%>
-    <%--                        <h3 id="Transport">--%>
-    <%--                            <spring:message code="dropdownHaul.start"/>--%>
-    <%--                        </h3>--%>
-    <%--                        <p class="services_p">--%>
-    <%--                            Транспортно-экспедиционная деятельность является неотъемлемым элементом эффективного--%>
-    <%--                            осуществления перевозок грузов--%>
-    <%--                            не только для клиента, оптимизируя его финансовые, трудовые и иные затраты, но и для нашего--%>
-    <%--                            Предприятия, непосредственно--%>
-    <%--                            осуществляющего перевозку груза, что позволяет нам позиционировать себя как надежного--%>
-    <%--                            делового партнера и дисциплинированного--%>
-    <%--                            игрока на рынке логистических услуг.--%>
-    <%--                        </p>--%>
-    <%--                        <a href="/transportHaul" class="btn btn-primary"><spring:message code="readMore.main"/></a>--%>
-    <%--                        <sec:authorize access="hasRole('ADMIN')">--%>
-    <%--                        <a href="/transportHaul" class="btn btn-primary">Delete</a>--%>
-    <%--                        </sec:authorize>--%>
-    <%--                    </div>--%>
-    <%--                </div>--%>
-    <%--            </div>--%>
-    <%--        </div>--%>
-    <%--    </div>--%>
-    <%--    <br><br><br><br><br><br>--%>
-    <%--    <div class="container-xxl">--%>
-    <%--        <div class="col-sm-12 col-lg-12">--%>
-    <%--            <div class="row justify-content-center">--%>
-    <%--                <div class="services">--%>
-    <%--                    <div class="col-sm-12 col-lg-5 text_logistics">--%>
-    <%--                        <h3 id="Rental">--%>
-    <%--                            <spring:message code="dropdownRental.start"/>--%>
-    <%--                        </h3>--%>
-    <%--                        <p class="services_p">--%>
-    <%--                            Транспортно-экспедиционная деятельность является неотъемлемым элементом эффективного--%>
-    <%--                            осуществления перевозок грузов--%>
-    <%--                            не только для клиента, оптимизируя его финансовые, трудовые и иные затраты, но и для нашего--%>
-    <%--                            Предприятия, непосредственно--%>
-    <%--                            осуществляющего перевозку груза, что позволяет нам позиционировать себя как надежного--%>
-    <%--                            делового партнера и дисциплинированного--%>
-    <%--                            игрока на рынке логистических услуг.--%>
-    <%--                        </p>--%>
-    <%--                        <a href="/warehouseRental" class="btn btn-primary"><spring:message code="readMore.main"/></a>--%>
-    <%--                    </div>--%>
-    <%--                    <div class="col-sm-12 col-lg-7">--%>
-    <%--                        <img class="img_logistics"--%>
-    <%--                             src="https://im0-tub-by.yandex.net/i?id=d13232261a42cc64a48470378944fad2&n=13">--%>
-    <%--                        <br>--%>
-    <%--                    </div>--%>
-    <%--                </div>--%>
-    <%--            </div>--%>
-    <%--        </div>--%>
-    <%--    </div>--%>
-    <%--    <br><br><br><br><br><br>--%>
-    <%--    <div class="container-xxl">--%>
-    <%--        <div class="col-sm-12 col-lg-12" data-wow-offset="300">--%>
-    <%--            <div class="row justify-content-start">--%>
-    <%--                <div class="services">--%>
-    <%--                    <div class="col-sm-12 col-lg-7">--%>
-    <%--                        <img class="img_logistics"--%>
-    <%--                             src="https://img2.freepng.ru/20190302/flh/kisspng-logistics-distribution-supply-chain-management-tra-one-stop-cross-border-fulfillment-solution-for-sou-5c7a0decaef140.7161804315515028287166.jpg">--%>
-    <%--                        <br>--%>
-    <%--                    </div>--%>
-    <%--                    <div class="col-sm-12 col-lg-5 text_logistics">--%>
-    <%--                        <h3 id="Purchasing">--%>
-    <%--                            <spring:message code="dropdownPurchasing.start"/>--%>
-    <%--                        </h3>--%>
-    <%--                        <p class="services_p">--%>
-    <%--                            Транспортно-экспедиционная деятельность является неотъемлемым элементом эффективного--%>
-    <%--                            осуществления перевозок грузов--%>
-    <%--                            не только для клиента, оптимизируя его финансовые, трудовые и иные затраты, но и для нашего--%>
-    <%--                            Предприятия, непосредственно--%>
-    <%--                            осуществляющего перевозку груза, что позволяет нам позиционировать себя как надежного--%>
-    <%--                            делового партнера и дисциплинированного--%>
-    <%--                            игрока на рынке логистических услуг.--%>
-    <%--                        </p>--%>
-    <%--                        <a href="/purchasing" class="btn btn-primary"><spring:message code="readMore.main"/></a>--%>
-    <%--                    </div>--%>
-    <%--                </div>--%>
-    <%--            </div>--%>
-    <%--        </div>--%>
-    <%--    </div>--%>
+            </div>
 </div>
-
+<%@include file="/WEB-INF/views/footer/footer.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
         crossorigin="anonymous"></script>

@@ -1,6 +1,7 @@
 package com.finaproject.logistic.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -26,16 +27,20 @@ public class Order {
     private long orderNumber;
 
     @Column
+    private Date orderDate;
+
+    @Column
     private double amount;
 
 
     public Order() {
     }
 
-    public Order(User user, double amount) {
-//        this.orderStage = orderStage;
+    public Order(User user, double amount, OrderStage orderStage,Date orderDate) {
+        this.orderStage = orderStage;
         this.user = user;
         this.amount = amount;
+        this.orderDate=orderDate;
     }
 
     public long getId() {
@@ -84,6 +89,14 @@ public class Order {
 
     public void setOrderStage(OrderStage orderStage) {
         this.orderStage = orderStage;
+    }
+
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
     }
 }
 

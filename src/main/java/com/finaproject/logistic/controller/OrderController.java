@@ -1,6 +1,5 @@
 package com.finaproject.logistic.controller;
 
-//import com.finaproject.logistic.model.Basket;
 
 import com.finaproject.logistic.entity.User;
 import com.finaproject.logistic.model.Basket;
@@ -26,10 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 public class OrderController {
 
     private OrderService orderService;
-
     private UserDAO userDAO;
-
-    private UserServiceImpl userService;
 
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
@@ -41,18 +37,11 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @Autowired
-    public void setUserService(UserServiceImpl userService) {
-        this.userService = userService;
-    }
-
     @GetMapping()
     public String getOrderPage(HttpServletRequest request, Model model, @AuthenticationPrincipal UserDetails currentUser) {
         Basket basket = Utils.getBasketInSession(request);
         User user = userDAO.findByUsername(currentUser.getUsername());
-//        user.setBasket(basket);
         model.addAttribute("basketModel", basket);
-//        model.addAttribute("basket", user.getBasket());
         model.addAttribute("user", user);
         return "user/order";
     }
@@ -72,7 +61,6 @@ public class OrderController {
         if (lastOrderedCart == null) {
             return "redirect:/basket";
         }
-//        model.addAttribute("lastOrderedCart", lastOrderedCart);
         return "redirect:/userPage";
     }
 

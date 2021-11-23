@@ -1,11 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Doctor
-  Date: 22.10.2021
-  Time: 10:46
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -21,8 +14,7 @@
         <input type="text" name="name" placeholder="Введите название" class="form-control"><br>
         <textarea name="description" placeholder="Введите полный текст" class="form-control"></textarea><br>
         <input type="text" name="imageUrl" placeholder="Введите юрл изображения" class="form-control"><br>
-        <input type="number" name="cost" placeholder="Введите cost" class="form-control"><br>
-        <input type="number" name="price" placeholder="Введите price" class="form-control"><br>
+        <input type="number" step="any" name="price" placeholder="Введите price" class="form-control"><br>
         <button type="submit" class="btn btn-success">Add service</button>
     </form>
 </div>

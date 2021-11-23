@@ -31,13 +31,6 @@
                                     class="text-danger">*</span></label>
                                 <form:input class="form-control" path="name" type="text" placeholder="Name"/>
                                 <form:errors path="name" cssClass="error"/>
-                                    <%--                                <label for="firstName" class="form-label">First name<span--%>
-                                    <%--                                        class="text-danger">*</span></label>--%>
-                                    <%--                                <input type="text" class="form-control" name="name" id="firstName" placeholder="" value=""--%>
-                                    <%--                                       required="">--%>
-                                    <%--                                <div class="invalid-feedback">--%>
-                                    <%--                                    Valid first name is required.--%>
-                                    <%--                                </div>--%>
                             </div>
                             <div class="col-md-7">
                                 <label for="username" class="form-label"><spring:message code="username.registration"/>
@@ -45,31 +38,18 @@
                                 <form:input class="form-control" type="text" path="username" placeholder="Username"/>
                                 <form:errors path="username" cssClass="error"/>
                                 <div class="text-danger">${usernameError}</div>
-                                    <%--                                <input type="text" class="form-control" name="username" id="username" placeholder="" value=""--%>
-                                    <%--                                       required="">--%>
-                                    <%--                                <div class="invalid-feedback">--%>
-                                    <%--                                    Valid Username is required.--%>
-                                    <%--                                </div>--%>
                             </div>
                             <div class="col-12">
                                 <label for="email" class="form-label"><spring:message code="email.registration"/> <span
                                         class="text-muted"> (<spring:message code="optional.registration"/>)</span></label>
                                 <form:input class="form-control" type="text" path="email" placeholder="Email"/>
                                 <form:errors path="email" cssClass="error"/>
-                                    <%--                                <input type="email" name="email" class="form-control" id="email" placeholder="youremail@example.com">--%>
-                                    <%--                                <div class="invalid-feedback">--%>
-                                    <%--                                    Please enter a valid email address!--%>
-                                    <%--                                </div>--%>
                             </div>
                             <div class="col-12">
                                 <label for="phoneNumber" class="form-label"><spring:message code="phoneNumber.registration"/><span
                                         class="text-danger">*</span></label>
                                 <form:input class="form-control" type="text" path="phoneNumber" placeholder="Phone"/>
                                 <form:errors path="phoneNumber" cssClass="error"/>
-                                    <%--                                <input class="form-control" name="phoneNumber" id="phoneNumber" placeholder="+375 (66) 666-66-66">--%>
-                                    <%--                                <div class="invalid-feedback">--%>
-                                    <%--                                    Please enter a valid phone number!--%>
-                                    <%--                                </div>--%>
                             </div>
                             <div class="row">
                                 <div class="col-6">
@@ -79,14 +59,6 @@
                                     <form:input type="password" path="password" placeholder="Password"
                                                 class="form-control"/>
                                     <form:errors path="password" cssClass="error"/>
-                                        <%--                                    <input type="password" name="password" class="form-control" id="registrationPassword">--%>
-                                        <%--                                    <div class="col-auto">--%>
-                                        <%--                                        <div class="invalid-feedback">--%>
-                                        <%--                                            Enter the true password--%>
-                                        <%--                                        </div>--%>
-                                        <%--                                        <span id="passwordHelpInline" class="form-text">--%>
-                                        <%--                                          Must be 8-20 symbols.--%>
-                                        <%--                                        </span>--%>
                                 </div>
                                 <div class="col-6">
                                     <label for="passwordConfirm" class="form-label"><spring:message code="passwordConfirm.registration"/><span
@@ -95,10 +67,6 @@
                                                 placeholder="Confirm your password"/>
                                     <form:errors path="passwordConfirm"/>
                                     <div class="text-danger">${passwordError}</div>
-                                        <%--                                    <input type="password" class="form-control" id="confirmation">--%>
-                                        <%--                                    <div class="invalid-feedback">--%>
-                                        <%--                                        Enter the true password--%>
-                                        <%--                                    </div>--%>
                                 </div>
                             </div>
                             <div class="row">

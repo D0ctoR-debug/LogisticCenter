@@ -21,7 +21,7 @@
             border-top: 1px solid #777777;
             border-bottom: 1px solid #777777;
             box-shadow: inset 0 1px 0 #999999, inset 0 -1px 0 #999999;
-            background: linear-gradient(#9595b6, #b5abf8);
+            background: linear-gradient(#9595b6, #263238);
             color: white;
             padding: 10px 15px;
             position: relative;
@@ -82,24 +82,24 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-<h2>Your Basket</h2>
+<h2 align="center"><spring:message code="your.basket"/></h2>
 <br>
-<c:if test="${basket == null || basket.basketInfos == null || basket.basketInfos.size()==0}">
+<c:if test="${basket.basketInfos.size()==0}">
     <br><br>
-    <h2>There is no items in basket</h2>
+    <h2><spring:message code="noItems.basket"/><br> <a href="/main" class="btn btn-success"><spring:message code="services.basket"/></a></h2>
 </c:if>
-<a href="/main" class="btn btn-success">К покупкам</a>
-<c:if test="${basket != null || basket.basketInfos != null || basket.basketInfos.size()!=0}">
+<c:if test="${basket.basketInfos.size()!=0}">
+    <a href="/main" class="btn btn-success"><spring:message code="back.basket"/></a>
     <c:url value="/basket" var="getBasket"/>
     <form:form method="post" action="${getBasket}" modelAttribute="basket">
         <table border="1" cellpadding="10" class="table_blur" align="center">
             <tr>
                 <th>№</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Quantity of characteristic</th>
-                <th>Cost</th>
-                <th>Action</th>
+                <th><spring:message code="nameUser.order"/></th>
+                <th><spring:message code="price.basket"/></th>
+                <th><spring:message code="quantity.basket"/></th>
+                <th><spring:message code="cost.basket"/></th>
+                <th><spring:message code="action.basket"/></th>
             </tr>
             <c:forEach var="item" items="${basket.basketInfos}" varStatus="status">
                 <form:hidden path="basketInfos[${status.index}].serviceInfo.id"/>
@@ -107,9 +107,9 @@
                     <td>${status.index+1}</td>
                     <td> ${item.serviceInfo.name}</td>
                     <td> ${item.serviceInfo.price} <c:if
-                            test="${item.serviceInfo.category.id==1||item.serviceInfo.category.id==3}">per/km</c:if>
+                            test="${item.serviceInfo.category.id==1||item.serviceInfo.category.id==3}"> BYR per/km</c:if>
                         <c:if
-                                test="${item.serviceInfo.category.id==2||item.serviceInfo.category.id==5}">per/day</c:if>
+                                test="${item.serviceInfo.category.id==2||item.serviceInfo.category.id==5}"> BYR per/day</c:if>
                     </td>
                     <td>
                         <form:input path="basketInfos[${status.index}].quantity"/> <c:if
@@ -118,10 +118,10 @@
                                 test="${item.serviceInfo.category.id==2||item.serviceInfo.category.id==5}">day(s)</c:if></td>
 
                     <c:set var="amount" value="${item.amount}"/>
-                    <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${amount}"/></td>
+                    <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${amount}"/> BYR</td>
                     <td>
                         <a title="Delete product from basket" href="/basket/delete?idService=${item.serviceInfo.id}"
-                           class="btn btn-danger">Delete</a>
+                           class="btn btn-danger"><spring:message code="deleteCategory.main"/></a>
                     </td>
                 </tr>
             </c:forEach>
@@ -135,60 +135,18 @@
                 <td colspan="6"></td>
             </tr>
             <tr>
-                <td align="right" colspan="4">Total Cost</td>
-                <td align="center">${basket.amountTotal}</td>
+                <td align="right" colspan="4"><spring:message code="total.basket"/></td>
+                <td align="center">${basket.amountTotal} BYR</td>
                 <td>
                         <form:hidden path="userInfo.id"/>
                     <c:if test="${basket.amountTotal > 0}">
-                    <a title="Confirm order" href="/order">Confirm</a>
+                    <a title="Confirm order" href="/order"><spring:message code="confirm.basket"/></a>
                     </c:if>
-
                     <br><br>
-
             </tr>
         </table>
     </form:form>
 </c:if>
-<%--<div class="row m-1">--%>
-<%--    <div class="col-sm-8">--%>
-<%--        <c:forEach var="item" varStatus="status" items="${basket.basketInfos}">--%>
-<%--            &lt;%&ndash;            <form:hidden path="basketItemns[${status.index}].service.id"/>&ndash;%&gt;--%>
-<%--            <div class="row border rounded">--%>
-<%--                <div class="col-1">--%>
-<%--                    <div>${status.count}</div>--%>
-<%--                    <div><a href="/" class="btn btn-danger">Remove</a></div>--%>
-<%--                </div>--%>
-<%--                <div class="col-3">--%>
-<%--                    <img src="${item.serviceInfo.imageUrl}" alt="Фото" class="img-fluid"/>--%>
-<%--                </div>--%>
-<%--                <div class="col-6">--%>
-<%--                    <div>--%>
-<%--                        <a>--%>
-<%--                            <b>${item.serviceInfo.name}</b>--%>
-<%--                        </a>--%>
-<%--                    </div>--%>
-<%--                    <div><input type="number" value="${item.quantity}" class="form-control"></div>--%>
-<%--                    <span>X</span>--%>
-<%--                    <span>${item.serviceInfo.price}</span>--%>
-<%--                    <span>=</span><span class="h4">Subtotal</span>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <div class="rom m-1">&nbsp;</div>--%>
-<%--        </c:forEach>--%>
-
-<%--        <a href="/main" class="btn btn-success">Вернутся на главную страницу</a>--%>
-<%--    </div>--%>
-<%--    <div class="col-sm-4">--%>
-<%--        <div>--%>
-<%--            <span class="h3">Estimated total:</span><br>--%>
-<%--        </div>--%>
-<%--        <div class="mt-2">--%>
-<%--            <span class="h2">Total</span>--%>
-<%--        </div>--%>
-<%--        <div class="btn btn-danger">Check Out</div>--%>
-<%--    </div>--%>
-<%--</div>--%>
-
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
         crossorigin="anonymous"></script>

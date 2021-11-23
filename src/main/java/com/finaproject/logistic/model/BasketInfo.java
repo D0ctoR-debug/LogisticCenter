@@ -1,8 +1,5 @@
 package com.finaproject.logistic.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class BasketInfo {
     private ServiceInfo serviceInfo;
     private int quantity;

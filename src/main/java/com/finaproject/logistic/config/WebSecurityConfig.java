@@ -36,24 +36,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-//                .antMatchers("/registration").not().fullyAuthenticated()
-//                .antMatchers("/admin/**").hasRole("ADMIN")
-//                .antMatchers("/main","/userPage","/basket").hasRole("USER")
-//                .antMatchers("/","/resources/**").permitAll()
                 .antMatchers("/","/registration","service","authorization","/resources/**",
                         "/locale/**","/css/**","/js/**","/images/**").permitAll()
-                .antMatchers("/admin/**","/allOrders/**","/allUsers/**").hasAnyRole("ADMIN","MANAGER")
-//                .antMatchers("/basket","/basket/**","/userPage","/userPage/**").hasRole("USER")
-//                .antMatchers("/main","/order/**").authenticated()
-//                .antMatchers("/admin/**").hasRole("ADMIN")
-//                .antMatchers("/main").hasAnyRole("ADMIN","USER","MANAGER")
+                .antMatchers("/newOrders").hasRole("MANAGER")
+                .antMatchers("/allOrders/**","/service/**/edit","/service/**/remove","/allUsers/**","/category/**/edit").hasAnyRole("ADMIN","MANAGER")
+                .antMatchers("/admin/**","/category/**/delete","/category/**/addService",
+                        "/addCategory","/users/**/orders").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/main")
-//                .usernameParameter("username")
-//                .passwordParameter("password")
                 .failureUrl("/login/failedEnter")
                 .permitAll()
                 .and()
@@ -73,18 +66,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         daoAuthenticationProvider.setUserDetailsService(userService);
         return daoAuthenticationProvider;
     }
-//    @Bean
-//    public JdbcUserDetailsManager users(DataSource dataSource){
-//        UserDetails admin = User.builder()
-//                .username("admin1")
-//                .password("admin")
-//                .roles("ADMIN","USER")
-//                .build();
-//        JdbcUserDetailsManager jdbcUserDetailsManager= new JdbcUserDetailsManager(dataSource);
-//        if (jdbcUserDetailsManager.userExists(admin.getUsername())){
-//            jdbcUserDetailsManager.deleteUser(admin.getUsername());
-//        }
-//        jdbcUserDetailsManager.createUser(admin);
-//        return jdbcUserDetailsManager;
-//    }
 }

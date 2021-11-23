@@ -8,7 +8,6 @@ import com.finaproject.logistic.repository.CategoryDAO;
 import com.finaproject.logistic.repository.UserDAO;
 import com.finaproject.logistic.service.interfaces.OrderService;
 import com.finaproject.logistic.service.interfaces.ServiceService;
-import com.finaproject.logistic.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +24,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-//@RequestMapping("/user")
 public class UserController {
 
     private UserDAO userDAO;
@@ -102,7 +100,6 @@ public class UserController {
         return "redirect:/userPage";
     }
 
-
     @GetMapping("/orderHistory")
     public String getOrdersList(HttpServletRequest request, Model model,
                                 @AuthenticationPrincipal UserDetails currentUser) {
@@ -114,4 +111,27 @@ public class UserController {
         return "user/orderHistory";
     }
 
+    @GetMapping("/orderHistory/ASC")
+    public String getUserOrdersBySortedSumASC(Model model, @AuthenticationPrincipal UserDetails currentUser) {
+        User user = userDAO.findByUsername(currentUser.getUsername());
+        List<Order> orders = orderService.findByUserIdWithSortedSumASC(user.getId());
+        model.addAttribute("orders", orders);
+        return "user/orderHistory";
+    }
+
+    @GetMapping("/orderHistory/desc")
+    public String getUserOrdersBySortedSumDesc(Model model, @AuthenticationPrincipal UserDetails currentUser) {
+        User user = userDAO.findByUsername(currentUser.getUsername());
+        List<Order> orders = orderService.findByUserIdWithSortedSumDesc(user.getId());
+        model.addAttribute("orders", orders);
+        return "user/orderHistory";
+    }
+
+    @GetMapping("/orderHistory/waitingForConfirmation")
+    public String getUserOrdersByOrderStageId(Model model, @AuthenticationPrincipal UserDetails currentUser) {
+        User user = userDAO.findByUsername(currentUser.getUsername());
+        List<Order> orders = orderService.findAllOrdersByUserIdAndOrderStage(2L, user.getId());
+        model.addAttribute("orders", orders);
+        return "user/orderHistory";
+    }
 }

@@ -62,135 +62,90 @@
 </head>
 <body>
 <c:import url="navbar/navbarStart.jsp"/>
-    <section>
-        <div class="container-xxl">
-            <div class="row align-items-center">
-                <div class="col-12 text-center">
-                    <h1 id="Welcome"><spring:message code="welcome.start"/></h1>
-                </div>
-                <div class="col-7">
-                    <h4>Логистический центр - это пространственно-функциональный объект с инфраструктурой и
-                        организацией, в котором логистические услуги, связанные с приемом, хранением, распределением и
-                        выдачей товаров и оказанием сопутствующих услуг, предоставляются хозяйствующими субъектами
-                        независимо от отправителя или получателя.
-                    </h4>
-                </div>
-                <div class="col-5 g-5">
-                    <img class="w-100" src="https://my-tumen.ru/unimages/sklad/3.jpg" alt="Warehouse">
-                </div>
+<section>
+    <div class="container-xxl">
+        <div class="row align-items-center">
+            <div class="col-12 text-center">
+                <h1 id="Welcome"><spring:message code="welcome.start"/></h1><br>
+            </div>
+            <div class="col-7">
+                <h4><spring:message code="info.startPage"/></h4>
+            </div>
+            <div class="col-5 g-5">
+                <img class="w-100" src="https://teltsov.by/assets/galleries/77/cam09_ps_srednyaya.jpg"
+                     alt="Logistic Center">
+            </div>
+
+            <div class="col-12 text-center">
+                <br><br>
+                <h1 id="Functions"><spring:message code="functions.startPage"/></h1><br>
+            </div>
+            <div class="col-7">
+                <h4><spring:message code="startNewInfo.startPage"/>:<br>
+                    1) <spring:message code="logFunctions.startPage"/>:<br>
+                    <li><spring:message code="transport.logFunctions.startPage"/>,</li>
+                    <li><spring:message code="storage.logFunctions.startPage"/>,</li>
+                    <li><spring:message code="inventory.logFunctions.startPage"/>,</li>
+                    <li><spring:message code="orderManagement.logFunctions.startPage"/>,</li>
+                    <li><spring:message code="packaging.logFunctions.startPage"/></li>
+                    <li><spring:message code="equipment.logFunctions.startPage"/>.</li>
+                    <br>
+                    2) <spring:message code="auxiliaryFunctions.startPage"/><br>
+                    <li><spring:message code="freightForwarding.auxiliaryFunctions.startPage"/>,</li>
+                    <li><spring:message code="customsClearance.auxiliaryFunctions.startPage"/>,</li>
+                    <li><spring:message code="insurance.auxiliaryFunctions.startPage"/>,</li>
+                    <li><spring:message code="systematic.auxiliaryFunctions.startPage"/>,</li>
+                    <li><spring:message code="rental.auxiliaryFunctions.startPage"/>,</li>
+                    <li><spring:message code="it.auxiliaryFunctions.startPage"/>,</li>
+                    <li><spring:message code="promotionMarketing.auxiliaryFunctions.startPage"/>.</li>
+                    <br>
+                    3) <spring:message code="additionalFunctions.startPage"/>:<br>
+                    <li><spring:message code="vehicleMaintenance.additionalFunctions.startPage"/>,</li>
+                    <li><spring:message code="sale.additionalFunctions.startPage"/>,</li>
+                    <li><spring:message code="repair.additionalFunctions.startPage"/></li>
+                    <li><spring:message code="hotel.additionalFunctions.startPage"/>,</li>
+                    <li><spring:message code="catering.additionalFunctions.startPage"/>,</li>
+                    <li><spring:message code="bank.additionalFunctions.startPage"/>,</li>
+                    <li><spring:message code="accounting.additionalFunctions.startPage"/>,</li>
+                    <li><spring:message code="tele.additionalFunctions.startPage"/>,</li>
+                    <li><spring:message code="parking.additionalFunctions.startPage"/>.</li>
+                </h4>
+            </div>
+            <div class="col-5 g-5">
+                <img class="w-100" src="https://pediatrinfo.ru/wp-content/uploads/2/c/4/2c47a3e6b66fc6705780cb067f70323c.jpeg"
+                     alt="Logistic Center">
             </div>
         </div>
-    </section>
-    <section>
-        <div class="container-xxl">
-            <h2 id="Services" class="col-12 text-center"><spring:message code="ourServices.start"/></h2>
-<%--            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">--%>
-<%--                <div class="carousel-indicators">--%>
-<%--                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"--%>
-<%--                            class="active"--%>
-<%--                            aria-current="true" aria-label="Slide 1"></button>--%>
-<%--                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"--%>
-<%--                            aria-label="Slide 2"></button>--%>
-<%--                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"--%>
-<%--                            aria-label="Slide 3"></button>--%>
-<%--                </div>--%>
-<%--                <div class="carousel-inner">--%>
-<%--                    <div class="carousel-item active">--%>
-                        <div class="row justify-content-between">
-                            <div class="col">
-                                <div class="card w-100">
-                                    <img src="https://storage.myseldon.com/news_pict_B8/B81B81D2EA2CA2525846327C624E1643"
-                                         class="card-img-top" alt="Транспортная логистика">
-                                    <div class="card-body">
-                                        <h5 class="card-title" id="TransportLog"><spring:message
-                                                code="dropdownTransport.start"/></h5>
-                                        <p class="card-text"><spring:message code="content.start"/></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="card w-100">
-                                    <img src="https://im0-tub-by.yandex.net/i?id=a6cd78f8221393e119edc4a9859e4892&n=13"
-                                         class="card-img-top" alt="Складская логистика">
-                                    <div class="card-body">
-                                        <h5 class="card-title" id="WarehouseLog"><spring:message
-                                                code="dropdownWarehouse.start"/></h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up
-                                            the bulk of the card's content.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="card w-100">
-                                    <img src="https://avatars.mds.yandex.net/get-zen_doc/2404796/pub_60019eb90cf4a170b932fc60_6001b26efd62ee068979de07/scale_1200"
-                                         class="card-img-top" alt="Перегон транспорта">
-                                    <div class="card-body">
-                                        <h5 class="card-title" id="Transport"><spring:message
-                                                code="dropdownHaul.start"/></h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up
-                                            the bulk of the card's content.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="card w-100">
-                                    <img src="https://im0-tub-by.yandex.net/i?id=d13232261a42cc64a48470378944fad2&n=13"
-                                         class="card-img-top" alt="Аренда склада">
-                                    <div class="card-body">
-                                        <h5 class="card-title" id="Rental"><spring:message
-                                                code="dropdownRental.start"/></h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up
-                                            the bulk of the card's content.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="card w-100">
-                                    <img src="https://im0-tub-by.yandex.net/i?id=d13232261a42cc64a48470378944fad2&n=13"
-                                         class="card-img-top" alt="Аренда склада">
-                                    <div class="card-body">
-                                        <h5 class="card-title" id="Purchasing"><spring:message
-                                                code="dropdownRental.start"/></h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up
-                                            the bulk of the card's content.</p>
-                                    </div>
-                                </div>
-                            </div>
+    </div>
+</section>
+<section>
+    <div class="container-xxl">
+        <h2 id="Services" class="col-12 text-center"><spring:message code="ourServices.start"/></h2>
+        <div class="row justify-content-between">
+            <c:forEach var="el" items="${categories}">
+                <div class="col">
+                    <div class="card w-100">
+                        <img src="${el.image}"
+                             class="card-img-top" alt="Service">
+                        <div class="card-body">
+                            <h5 class="card-title" id="Service">${el.name}</h5>
+                            <p class="card-text">${el.shortDescription}</p>
                         </div>
                     </div>
-        <div class="text-center">
-            <h5> Для полной информации и для оформления заказа требуется войти в аккаунт или <a
-                    href="/registration">зарегистрироваться </a>!</h5>
+                </div>
+            </c:forEach>
         </div>
-    </section>
-    <section>
-        <div class="container-xxl">
-            <div class="row align-items-center">
-                <div class="col-12 text-center">
-                    <h2 id="Contacts">Как с нами связаться</h2>
-                </div>
-                <div class="col-7">
-                    <h4>Связаться можно любыми способами</h4>
-                    <h4>Адрес: </h4>
-                    <h4>Телефон: </h4>
-                    <h4>Почта: </h4>
-                </div>
-                <div class="col-5 g-5">
-                    <a href="/main">Юзер</a>
-                </div>
-            </div>
-        </div>
-        <h3><a href="/login">Voiti</a></h3>
-    </section>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-            crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
-            crossorigin="anonymous"></script>
+    </div>
+    <div class="text-center">
+        <h5 align="center"><spring:message code="moreInfo.startPage"/></h5>
+    </div>
+</section>
+<%@include file="/WEB-INF/views/footer/footer.jsp" %>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
 </body>
 </html>

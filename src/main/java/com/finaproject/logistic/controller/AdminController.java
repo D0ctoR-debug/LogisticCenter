@@ -1,12 +1,9 @@
 package com.finaproject.logistic.controller;
 
 import com.finaproject.logistic.entity.*;
-import com.finaproject.logistic.repository.CategoryDAO;
-import com.finaproject.logistic.repository.OrderDAO;
-import com.finaproject.logistic.repository.OrderStageDAO;
-import com.finaproject.logistic.repository.UserDAO;
+import com.finaproject.logistic.repository.*;
 import com.finaproject.logistic.service.interfaces.OrderService;
-import org.aspectj.weaver.ast.Or;
+import com.finaproject.logistic.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,28 +11,26 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 @Controller
-//@RequestMapping("/admin")
 public class AdminController {
 
     private OrderService orderService;
     private UserDAO userDAO;
     private OrderDAO orderDAO;
-    private CategoryDAO categoryDAO;
-    private OrderStageDAO orderStageDAO;
+    private UserService userService;
+    private RoleDAO roleDAO;
 
     @Autowired
-    public void setOrderStageDAO(OrderStageDAO orderStageDAO) {
-        this.orderStageDAO = orderStageDAO;
+    public void setRoleDAO(RoleDAO roleDAO) {
+        this.roleDAO = roleDAO;
     }
 
     @Autowired
-    public void setCategoryDAO(CategoryDAO categoryDAO) {
-        this.categoryDAO = categoryDAO;
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     @Autowired
@@ -69,11 +64,49 @@ public class AdminController {
         return "admin/allUsers";
     }
 
+    @GetMapping("/users/{id}")
+    public String userPage(Model model, @PathVariable("id") long userId) {
+        User user = userDAO.getById(userId);
+        model.addAttribute("user", user);
+        return "admin/userPage";
+    }
+
+    @GetMapping("/users/{id}/addManager")
+    public String addManager(Model model, @PathVariable("id") long userId) {
+        User user = userDAO.getById(userId);
+        Role manager = roleDAO.getById(2L);
+        Set<Role> roles = user.getRole();
+        roles.add(manager);
+        user.setRole(roles);
+        user.setDiscount(4);
+        userDAO.save(user);
+        return "redirect:/allUsers";
+    }
+
+    @GetMapping("/users/{id}/deleteManager")
+    public String deleteManager(Model model, @PathVariable("id") long userId) {
+        User user = userDAO.getById(userId);
+        Set<Role> roles = user.getRole();
+        Role manager = roleDAO.getById(2L);
+        roles.remove(manager);
+        user.setRole(roles);
+        user.setDiscount(2.5);
+        userDAO.save(user);
+        return "redirect:/allUsers";
+    }
+
+
     @GetMapping("/users/{id}/orders")
     public String getUserOrders(Model model, @PathVariable("id") long userId) {
         List<Order> orders = orderService.returnAllOrdersByUserId(userId);
         model.addAttribute("orders", orders);
-        return "users/orderHistoryPage";
+        return "user/orderHistory";
+    }
+
+    @GetMapping("/users/{id}/delete")
+    public String deleteUser(@PathVariable("id") long userId, Model model) {
+        userService.deleteUser(userId);
+        return "redirect:/allUsers";
     }
 
     @GetMapping("/allOrders")
@@ -97,44 +130,10 @@ public class AdminController {
         return "admin/allOrders";
     }
 
-
     @GetMapping("/order/{id}")
     public String getOrder(@PathVariable(value = "id") long id, Model model) {
         Order order = orderDAO.findById(id);
         model.addAttribute("order", order);
         return "";
-    }
-
-    @PostMapping("/order/{id}/accept")
-    public String acceptOrder(@PathVariable(value = "id") long id, Model model) {
-        Order order = orderDAO.getById(id);
-        OrderStage orderStage = orderStageDAO.getById(4L);
-        order.setOrderStage(orderStage);
-        orderDAO.save(order);
-        return "redirect:/orderHistory";
-    }
-
-    @PostMapping("/order/{id}/reject")
-    public String rejectOrder(@PathVariable(value = "id") long id, Model model) {
-        Order order = orderDAO.getById(id);
-        OrderStage orderStage = orderStageDAO.getById(3L);
-        order.setOrderStage(orderStage);
-        orderDAO.save(order);
-        return "redirect:/orderHistory";
-    }
-
-    @GetMapping("/addCategory")
-    public String addCategoryPage(Model model) {
-        return "admin/addCategory";
-    }
-
-    @PostMapping("/addCategory")
-    public String addCategory(@RequestParam String name,
-                              @RequestParam String description,
-                              @RequestParam String image, Model model) {
-        Category category = new Category(name, description, image);
-        categoryDAO.save(category);
-        return "redirect:/main";
-
     }
 }

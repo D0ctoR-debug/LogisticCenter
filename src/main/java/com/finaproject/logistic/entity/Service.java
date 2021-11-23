@@ -30,28 +30,11 @@ public class Service {
     @JoinColumn(name = "category_id")
     private Category category;
 
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(name = "basket_item",
-//            joinColumns = {@JoinColumn(name = "service_id")},
-//            inverseJoinColumns = {@JoinColumn(name = "basket_id")})
-//    private List<Basket> baskets;
-
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "order_item",
             joinColumns = {@JoinColumn(name = "service_id")},
             inverseJoinColumns = {@JoinColumn(name = "order_id")})
     private List<Order> orders;
-
-    @ManyToMany
-    @JoinColumn(name = "characteristics_id")
-    private Set<ProductsCharacteristics> characteristics;
-
-//    @ManyToMany
-//    @JoinTable(name = "basket_item_service",
-//            joinColumns = @JoinColumn(name = "service_id"),
-//            inverseJoinColumns = @JoinColumn(name = "basket_item_id"))
-//    private List<BasketItem> basketItems;
-
 
     public Service() {
     }
@@ -113,37 +96,14 @@ public class Service {
         this.category = category;
     }
 
-//    public List<Basket> getBaskets() {
-//        return baskets;
-//    }
-//
-//    public void setBaskets(List<Basket> baskets) {
-//        this.baskets = baskets;
-//    }
-
     public List<Order> getOrders() {
         return orders;
     }
 
-    public Set<ProductsCharacteristics> getCharacteristics() {
-        return characteristics;
-    }
-
-    public void setCharacteristics(Set<ProductsCharacteristics> characteristics) {
-        this.characteristics = characteristics;
-    }
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
-
-//    public List<BasketItem> getBasketItems() {
-//        return basketItems;
-//    }
-//
-//    public void setBasketItems(List<BasketItem> basketItems) {
-//        this.basketItems = basketItems;
-//    }
 
     public double getCost() {
         return cost;

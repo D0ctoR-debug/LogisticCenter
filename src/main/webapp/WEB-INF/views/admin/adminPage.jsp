@@ -10,7 +10,6 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <%--    <link rel="stylesheet" href="css/userPage.css">--%>
 </head>
 <body>
 <header>
@@ -44,9 +43,6 @@
         </div>
     </nav>
 </header>
-<!-- <div class="photo">
-    <img src="https://w-dog.ru/wallpapers/13/9/505795850978289/muzhchina-minimalizm-siluet-ten-chelovek-paren-malchik-bantik-galstuk-babaochka-krasnyj-seryj.jpg" width="15%" height="15%">
-</div> -->
 <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
     <div class="row">
         <div class="col-md-6">
@@ -66,10 +62,8 @@
             <a href="/changeImg" class="text-white font-weight-bold">Изменить аватар</a></p>
         <a href="/allUsers">Все пользователи</a>
     </div>
-    <!-- <div class="col-md-5">
-        <img src="https://w-dog.ru/wallpapers/13/9/505795850978289/muzhchina-minimalizm-siluet-ten-chelovek-paren-malchik-bantik-galstuk-babaochka-krasnyj-seryj.jpg" width="15%" height="15%">
-    </div>  -->
 </div>
+<%@include file="/WEB-INF/views/footer/footerOthers.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
         crossorigin="anonymous"></script>

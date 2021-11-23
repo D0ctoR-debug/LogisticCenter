@@ -13,14 +13,30 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-<%--                    <sec:authorize access="!hasRole('ADMIN')">--%>
-<%--                    <li class="nav-item">--%>
-<%--                        <a class="nav-link" href="/basket"><spring:message code="basket.profile"/></a>--%>
-<%--                    </li>--%>
-<%--                    </sec:authorize>--%>
-<%--                    <li class="nav-item">--%>
-<%--                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>--%>
-<%--                    </li>--%>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/basket"><spring:message code="basket.profile"/></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/order"><spring:message code="orders.profile"/></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/orderHistory"><spring:message code="history.navbar"/></a>
+                    </li>
+                    <sec:authorize access="hasRole('ADMIN')">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/allUsers"><spring:message code="all.allUsers"/></a>
+                    </li>
+                    </sec:authorize>
+                    <sec:authorize access="hasAnyRole('ADMIN','MANAGER')">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/allOrders"><spring:message code="allOrders.profile"/></a>
+                    </li>
+                    </sec:authorize>
+                    <sec:authorize access="hasRole('MANAGER')">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/newOrders"><spring:message code="newOrders.profile"/></a>
+                        </li>
+                    </sec:authorize>
                 </ul>
                 <div class="text-end">
                     <a href="?lang=en"><img

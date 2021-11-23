@@ -14,11 +14,6 @@ public class Utils {
         return user;
     }
 
-    public static Manager getManagerInSession(HttpServletRequest request) {
-        Manager manager = (Manager) request.getSession().getAttribute("manager");
-        return manager;
-    }
-
     //   Products in the cart, stored in Session.
     public static Basket getBasketInSession(HttpServletRequest request) {
 

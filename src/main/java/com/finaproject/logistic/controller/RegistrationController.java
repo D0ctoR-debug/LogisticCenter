@@ -1,8 +1,6 @@
 package com.finaproject.logistic.controller;
 
 import com.finaproject.logistic.entity.User;
-//import com.finaproject.logistic.model.Basket;
-//import com.finaproject.logistic.model.Basket;
 import com.finaproject.logistic.form.UserForm;
 import com.finaproject.logistic.model.Basket;
 import com.finaproject.logistic.service.UserServiceImpl;
@@ -36,7 +34,6 @@ public class RegistrationController {
     @GetMapping("/registration")
     public String registration(HttpServletRequest request, Model model) {
         Basket basket = Utils.getBasketInSession(request);
-//        model.addAttribute("userForm", new User());
         com.finaproject.logistic.model.User userInfo = basket.getUserInfo();
         UserForm userForm = new UserForm(userInfo);
         model.addAttribute("userForm", userForm);
@@ -59,7 +56,7 @@ public class RegistrationController {
             return "authorization/registration";
         }
         Basket basket = Utils.getBasketInSession(request);
-        com.finaproject.logistic.model.User userInfo =new com.finaproject.logistic.model.User(userForm);
+        com.finaproject.logistic.model.User userInfo = new com.finaproject.logistic.model.User(userForm);
         basket.setUserInfo(userInfo);
         return "redirect:/";
     }

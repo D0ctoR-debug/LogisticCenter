@@ -1,11 +1,7 @@
 package com.finaproject.logistic.service;
 
-//import com.finaproject.logistic.model.Basket;
-//import com.finaproject.logistic.model.BasketInfo;
-
 import com.finaproject.logistic.entity.Order;
 import com.finaproject.logistic.entity.OrderItem;
-import com.finaproject.logistic.entity.OrderStage;
 import com.finaproject.logistic.entity.User;
 import com.finaproject.logistic.model.Basket;
 import com.finaproject.logistic.model.BasketInfo;
@@ -15,6 +11,7 @@ import org.apache.commons.math3.util.Precision;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -53,20 +50,21 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void saveOrder(Basket basket, long id) {
         Order order = new Order();
-        order.setUser(userDAO.getById(id));
-        order.setAmount(Precision.round(basket.getAmountTotal(), 2));
+        User user = userDAO.getById(id);
+        order.setUser(user);
+        order.setOrderDate(new Date(System.currentTimeMillis()));
+        order.setAmount(Precision.round(basket.getAmountTotal() - basket.getAmountTotal() * order.getUser().getDiscount() / 100, 2));
         order.setOrderStage(orderStageDAO.getById(2L));
 //        order.setOrderNumber(order.getId());
         orderDAO.save(order);
-
 
         List<BasketInfo> basketInfos = basket.getBasketInfos();
 
         for (BasketInfo basketInfo : basketInfos) {
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(order);
-            orderItem.setAmount(Precision.round(basketInfo.getAmount(), 2));
-            orderItem.setPrice(Precision.round(basketInfo.getServiceInfo().getPrice(), 2));
+            orderItem.setAmount(Precision.round(basketInfo.getAmount() - basketInfo.getAmount() * order.getUser().getDiscount() / 100, 2));
+            orderItem.setPrice(Precision.round(basketInfo.getServiceInfo().getPrice() - basketInfo.getServiceInfo().getPrice() * order.getUser().getDiscount() / 100, 2));
             orderItem.setQuantity(basketInfo.getQuantity());
             com.finaproject.logistic.entity.Service service = this.daoService.getById(basketInfo.getServiceInfo().getId());
             orderItem.setService(service);
@@ -92,26 +90,27 @@ public class OrderServiceImpl implements OrderService {
         return orderDAO.findById(orderID);
     }
 
-    @Override
-    public void savePersonalOrder(com.finaproject.logistic.entity.Service service, User user) {
-
-        com.finaproject.logistic.entity.Service service1 = daoService.getById(service.getId());
-        Order order = new Order();
-        order.setUser(user);
-        order.setAmount(Precision.round(service1.getQuantity() * service1.getPrice(), 2));
-        orderDAO.save(order);
-//        order.setOrderNumber(order.getId());
-        OrderItem orderItem = new OrderItem();
-        orderItem.setOrder(order);
-        orderItem.setAmount(order.getAmount());
-        orderItem.setPrice(service1.getPrice());
-        orderItem.setQuantity(service1.getQuantity());
-        orderItem.setService(service1);
-        orderItem.setOrderItemID(2L);
-        orderItemDAO.save(orderItem);
-        service1.setQuantity(0);
-
-    }
+//    @Override
+//    public void savePersonalOrder(com.finaproject.logistic.entity.Service service, User user) {
+//
+//        com.finaproject.logistic.entity.Service service1 = daoService.getById(service.getId());
+//        Order order = new Order();
+//        order.setUser(user);
+//        order.setOrderDate(new Date((System.currentTimeMillis())));
+//        order.setAmount(Precision.round(service1.getQuantity() * service1.getPrice(), 2));
+//        orderDAO.save(order);
+////        order.setOrderNumber(order.getId());
+//        OrderItem orderItem = new OrderItem();
+//        orderItem.setOrder(order);
+//        orderItem.setAmount(order.getAmount());
+//        orderItem.setPrice(service1.getPrice());
+//        orderItem.setQuantity(service1.getQuantity());
+//        orderItem.setService(service1);
+//        orderItem.setOrderItemID(2L);
+//        orderItemDAO.save(orderItem);
+//        service1.setQuantity(0);
+//
+//    }
 
     @Override
     public List<Order> returnOrdersIncludeService(long id) {
@@ -151,6 +150,21 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> returnAllOrdersByOrderStageWithSortedSumDesc(long orderStageId) {
         return orderDAO.findAllOrdersByOrderStageWithSortedSumDesc(orderStageId);
+    }
+
+    @Override
+    public List<Order> findByUserIdWithSortedSumASC(long userId) {
+        return orderDAO.findByUserIdWithSortedSumASC(userId);
+    }
+
+    @Override
+    public List<Order> findByUserIdWithSortedSumDesc(long userId) {
+        return orderDAO.findByUserIdWithSortedSumDESC(userId);
+    }
+
+    @Override
+    public List<Order> findAllOrdersByUserIdAndOrderStage(long orderStageId, long userId) {
+        return orderDAO.findAllOrdersByUserIdAndOrderStage(orderStageId, userId);
     }
 
 }

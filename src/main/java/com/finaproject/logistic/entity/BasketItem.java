@@ -1,7 +1,6 @@
 package com.finaproject.logistic.entity;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "basket_items")
@@ -63,65 +62,4 @@ public class BasketItem {
     public void setBasket(Basket basket) {
         this.basket = basket;
     }
-    //    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private long id;
-//
-//    @Column
-//    private int quantity;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "basket_id")
-//    private Basket basket;
-//
-//
-//    @ManyToMany(mappedBy = "basketItems")
-//    private List<Service> services;
-//
-//    public BasketItem() {
-//    }
-//
-//    public BasketItem(Basket basket,int quantity) {
-//        this.quantity = quantity;
-//        this.basket = basket;
-//    }
-//
-//    public BasketItem(long id, int quantity, Basket basket, List<Service> services) {
-//        this.id = id;
-//        this.quantity = quantity;
-//        this.basket = basket;
-//        this.services = services;
-//    }
-//
-//    public long getId() {
-//        return id;
-//    }
-//
-//    public void setId(long id) {
-//        this.id = id;
-//    }
-//
-//    public int getQuantity() {
-//        return quantity;
-//    }
-//
-//    public void setQuantity(int quantity) {
-//        this.quantity = quantity;
-//    }
-//
-//    public Basket getBasket() {
-//        return basket;
-//    }
-//
-//    public void setBasket(Basket basket) {
-//        this.basket = basket;
-//    }
-//
-//    public List<Service> getServices() {
-//        return services;
-//    }
-//
-//    public void setServices(List<Service> services) {
-//        this.services = services;
-//    }
 }

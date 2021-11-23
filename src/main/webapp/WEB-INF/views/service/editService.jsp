@@ -11,7 +11,7 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <body>
 <header>
-    <%@include file="/WEB-INF/views/navbar/navbarService.jsp" %>
+    <%@include file="/WEB-INF/views/navbar/navbarEdit.jsp" %>
 </header>
 <div class="container mt-5 mb-5">
     <h1>Редактирование статьи</h1>
@@ -20,8 +20,8 @@
             <input type="text" name="name" placeholder="Введите название" class="form-control" value="<c:out value="${el.name}"/>"><br>
             <textarea name="description"  placeholder="Введите полный текст" class="form-control"> <c:out value="${el.description}"/></textarea><br>
             <input type="text" name="imageUrl" placeholder="Введите Url" class="form-control" value="<c:out value="${el.imageUrl}"/>"><br>
-            <input type="number" name="cost" placeholder="Cost" class="form-control" value="<c:out value="${el.cost}"/>"><br>
-            <input type="number" name="price" placeholder="Price" class="form-control" value="<c:out value="${el.price}"/>"><br>
+<%--            <input type="number" name="cost" placeholder="Cost" class="form-control" value="<c:out value="${el.cost}"/>"><br>--%>
+            <input type="number" step="any" name="price" placeholder="Price" class="form-control" value="<c:out value="${el.price}"/>"><br>
             <button type="submit" class="btn btn-success">Edit</button>
         </form>
     </c:forEach>

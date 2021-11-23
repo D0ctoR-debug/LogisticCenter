@@ -16,8 +16,13 @@ public class Category {
     @Column
     private String description;
 
+    @Column
+    private String shortDescription;
+
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     List<Service> services;
+
+
     @Column
     private String image;
 
@@ -75,5 +80,13 @@ public class Category {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
     }
 }

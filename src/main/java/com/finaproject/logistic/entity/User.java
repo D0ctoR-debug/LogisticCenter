@@ -38,13 +38,13 @@ public class User implements UserDetails, Serializable {
     @Email(message = "Email should be valid")
     private String email;
 
-//    @Column(name = "discount")
-//    private double discount;
+    @Column(name = "discount")
+    private double discount;
 
     @Transient
     private String passwordConfirm;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinTable(name = "user_role",
             joinColumns = {
                     @JoinColumn(name = "user_id")},
@@ -64,12 +64,13 @@ public class User implements UserDetails, Serializable {
     public User() {
     }
 
-    public User(String name, String username, String password, String phoneNumber, String email) {
+    public User(String name, String username, String password, String phoneNumber, String email,double discount) {
         this.name = name;
         this.username = username;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.email = email;
+        this.discount=discount;
     }
 
     public long getId() {
@@ -124,11 +125,6 @@ public class User implements UserDetails, Serializable {
         }
         return list;
     }
-
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return null;
-//    }
 
     public String getPassword() {
         return password;
@@ -198,5 +194,17 @@ public class User implements UserDetails, Serializable {
                 user.isActive(),
                 user.getAuthorities()
         );
+    }
+
+    public double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
+    }
+
+    public void setBasket(Basket basket) {
+        this.basket = basket;
     }
 }

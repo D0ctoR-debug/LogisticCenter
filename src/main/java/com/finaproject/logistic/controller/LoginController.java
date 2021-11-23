@@ -2,8 +2,6 @@ package com.finaproject.logistic.controller;
 
 import com.finaproject.logistic.entity.User;
 import com.finaproject.logistic.form.UserForm;
-//import com.finaproject.logistic.model.Basket;
-//import com.finaproject.logistic.model.Basket;
 import com.finaproject.logistic.model.Basket;
 import com.finaproject.logistic.service.UserServiceImpl;
 import com.finaproject.logistic.utils.Utils;
@@ -74,5 +72,4 @@ public class LoginController {
         model.addAttribute("msg", errorMessage);
         return "login";
     }
-
 }
